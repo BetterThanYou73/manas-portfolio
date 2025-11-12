@@ -27,6 +27,8 @@ function startMatrixAnimation() {
 
         ctx.fillStyle = "#0F0";
         ctx.font = fontSize + "px arial";
+        ctx.shadowColor = "#0F0";
+        ctx.shadowBlur = 10;
 
         for (let i = 0; i < drops.length; i++) {
             let text = letters[Math.floor(Math.random() * letters.length)];
