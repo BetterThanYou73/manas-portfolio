@@ -149,6 +149,8 @@ function startMatrixAnimation() {
 
         // allow scrolling once content is visible
         document.body.style.overflowY = "auto";
+        document.body.classList.remove("loading");
+        document.getElementById("mainContent").style.opacity = 1;
 
     }, 10000);
 }

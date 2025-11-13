@@ -33,7 +33,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 
-<body>
+<body class="loading">
 
     <!-- MATRIX ANIMATION CANVAS -->
     <canvas id="matrixCanvas"></canvas>
@@ -257,19 +257,24 @@
 
         const disc  = document.getElementById("footer-disc");
         const audio = document.getElementById("footer-audio");
-        let isPlaying = false;
 
         if (disc && audio) {
+            let hasMorphed = false;  // did we already turn O -> disc?
+            let isPlaying  = false;
+
             disc.addEventListener("click", () => {
-                // first time: turn the "O" into a disc
-                if (!disc.classList.contains("disc-active")) {
+                // first click: turn the letter into the disc
+                if (!hasMorphed) {
                     disc.classList.add("disc-active");
+                    hasMorphed = true;
                 }
 
                 if (!isPlaying) {
                     audio.play().then(() => {
                         disc.classList.add("disc-spin");
                         isPlaying = true;
+                    }).catch(err => {
+                        console.error("Audio play failed:", err);
                     });
                 } else {
                     audio.pause();

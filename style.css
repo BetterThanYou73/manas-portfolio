@@ -302,47 +302,6 @@ body {
   }
 }
 
-/* ---------- FOOTER ---------- */
-
-.site-footer {
-  padding: 2rem 6vw 3rem;
-  text-align: center;
-  background: radial-gradient(circle at top, #021509 0%, #020805 60%);
-}
-
-.footer-text {
-  color: #7df9b4;
-  font-size: 0.85rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-/* the “o” that turns into a disc */
-#footer-disc {
-  display: inline-block;
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-/* once clicked */
-#footer-disc.disc-active {
-  width: 1.1em;
-  height: 1.1em;
-  border-radius: 50%;
-  border: 2px solid #00ff88;
-  line-height: 1.1em;
-  text-align: center;
-  box-shadow: 0 0 8px rgba(0, 255, 136, 0.9);
-  animation: spin-disc 1.3s linear infinite;
-}
-
-@keyframes spin-disc {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-
 /* ---------- SKILLS SECTION ---------- */
 
 .skills-section {
@@ -505,57 +464,6 @@ body {
     border-color: rgba(18, 240, 155, 0.9);
 }
 
-/* ==== FOOTER + DISC EASTER EGG ==== */
-
-.site-footer {
-    border-top: 1px solid rgba(18, 240, 155, 0.12);
-    padding: 1.5rem 1.5rem 2rem;
-    text-align: center;
-    color: #6ce1a8;
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-}
-
-.footer-text {
-    display: inline-block;
-    position: relative;
-}
-
-/* clickable "o" */
-#footer-disc {
-    display: inline-block;
-    margin: 0 1px;
-    cursor: pointer;
-    transition: transform 0.2s ease, color 0.2s ease, text-shadow 0.2s ease;
-}
-
-/* when clicked once */
-#footer-disc.disc-active {
-    color: #12f09b;
-    text-shadow: 0 0 10px rgba(18, 240, 155, 0.8);
-}
-
-/* spin while music is playing */
-#footer-disc.disc-spinning {
-    animation: disc-spin 1.4s linear infinite;
-}
-
-@keyframes disc-spin {
-    from { transform: rotate(0deg);   }
-    to   { transform: rotate(360deg); }
-}
-
-/* tiny contact anchor so #contact works without a full section */
-.contact-anchor {
-    height: 1px;
-}
-
-/* Temporarily hide placeholder sections (Education / Experience / etc.) */
-.stub-section {
-  display: none;
-}
-
 /* ===== SKILLS BLOCKS (HEADINGS + LINES + MONITOR) ===== */
 
 .skills-section {
@@ -715,71 +623,6 @@ body {
     margin-bottom: 1.5rem;
   }
 }
-
-/* ===== FOOTER DISC (Minecraft-y vinyl) ===== */
-
-.site-footer {
-  padding: 1.5rem 8vw 2rem;
-  border-top: 1px solid rgba(0,255,140,0.06);
-  margin-top: 3rem;
-}
-
-.footer-text {
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  color: #9bf7c8;
-}
-
-.footer-disc {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 1.3em;
-  height: 1.3em;
-  margin: 0 0.05em;
-  border-radius: 50%;
-  border: 3px solid #34ff7a;
-  box-shadow:
-    0 0 6px rgba(0,255,140,0.8),
-    0 0 16px rgba(0,255,140,0.7);
-  position: relative;
-  cursor: pointer;
-  background: radial-gradient(circle at 30% 30%, #34ff7a, #021307 70%);
-}
-
-/* little pixel-ish center */
-.footer-disc::before {
-  content: "";
-  width: 40%;
-  height: 40%;
-  border-radius: 4px;
-  background: #012811;
-  box-shadow: 0 0 6px rgba(0,0,0,0.9) inset;
-}
-
-/* tiny square “hole” */
-.footer-disc::after {
-  content: "";
-  width: 18%;
-  height: 18%;
-  border-radius: 2px;
-  background: #13ff80;
-  box-shadow: 0 0 4px rgba(19,255,128,0.8);
-}
-
-/* spin only when playing */
-.footer-disc.playing {
-  animation: spinDisc 1.6s linear infinite;
-}
-
-@keyframes spinDisc {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-
-
 
 /* ===== SKILLS LAYOUT ================================================= */
 
@@ -973,54 +816,6 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background: linear-gradient(#00ff99, #05f2c2);
   border-radius: 4px;
-}
-
-/* ===== FOOTER DISC – "Minecraft-ish" =============================== */
-
-.site-footer {
-  padding: 1.8rem 0 1.4rem;
-  text-align: center;
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #b0ffd9;
-  border-top: 1px solid rgba(0, 255, 153, 0.12);
-}
-
-#footer-disc {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin: 0 4px;
-  position: relative;
-  border-radius: 3px;
-  border: 3px solid #00ff99;
-  box-shadow:
-    0 0 6px rgba(0, 255, 153, 0.8),
-    0 0 14px rgba(0, 255, 153, 0.7);
-  cursor: pointer;
-  transform: rotate(45deg); /* blocky diamond, Minecraft vibe */
-}
-
-#footer-disc::before {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  border-radius: 2px;
-  background: #00ff99;
-  box-shadow:
-    inset 0 0 4px rgba(0, 0, 0, 0.9),
-    0 0 8px rgba(0, 255, 153, 0.9);
-}
-
-/* spinning only when active */
-#footer-disc.disc-spin {
-  animation: disc-spin 2.6s linear infinite;
-}
-
-@keyframes disc-spin {
-  from { transform: rotate(45deg); }
-  to   { transform: rotate(405deg); }
 }
 
 /* ===== RESPONSIVE: MOBILE =========================================== */
@@ -1653,9 +1448,9 @@ body {
     }
 }
 
-/* === FINAL FOOTER DISC BEHAVIOUR === */
+/* === FOOTER DISC CLEAN VERSION ================================== */
 
-
+/* footer base */
 .site-footer {
     border-top: 1px solid rgba(0, 255, 140, 0.15);
     padding: 1.5rem 5vw 2.5rem;
@@ -1671,44 +1466,93 @@ body {
     display: inline-block;
 }
 
-/* initial: plain "O" */
+/* 1) default: it is just the letter "O" */
 #footer-disc {
     display: inline-block;
     cursor: pointer;
-    margin: 0 2px;
-    width: auto;
-    height: auto;
-    background: none;
-    border: none;
-    box-shadow: none;
+    min-width: 0.6em;          /* stops layout from jumping */
     color: inherit;
+    text-shadow: none;
     transform: none;
-    filter: none;
-    transition:
-        transform 0.3s ease,
-        filter 0.3s ease,
-        color 0.3s ease,
-        background 0.3s ease;
 }
 
-/* after first click: becomes vinyl disc image */
+/* 2) after first click: morph to disc image and stay that way */
 #footer-disc.disc-active {
+    text-indent: -9999px;      /* hide the "O" text */
+    overflow: hidden;
     width: 26px;
     height: 26px;
+    vertical-align: middle;
+    margin: 0 4px;
     border-radius: 50%;
     background-image: url("assets/disc.png");
     background-size: cover;
     background-position: center;
-    color: transparent; /* hide the 'O' glyph */
-    box-shadow: 0 0 8px rgba(0, 255, 160, 0.8);
+    filter: drop-shadow(0 0 6px #00ff99);
 }
 
-/* spinning while music is playing */
+/* 3) spin only when music is playing */
 #footer-disc.disc-spin {
-    animation: footerDiscSpin 2.2s linear infinite;
+    animation: footerDiscSpin 2.3s linear infinite;
 }
 
 @keyframes footerDiscSpin {
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
+}
+
+/* === SKILLS MONITOR RESPONSIVE FIX ========================= */
+
+/* desktop / tablet grid */
+.skills-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: flex-start;
+}
+
+/* monitor column */
+.skills-monitor {
+    position: sticky;
+    top: 18vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: none;    /* kill old scale() stuff */
+    margin: 0;
+}
+
+/* keep CRT inside the column width */
+.monitor-inner {
+    width: min(420px, 100%);
+    height: auto;
+}
+
+/* mobile: stack vertically, no overflow */
+@media (max-width: 900px) {
+    .skills-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .skills-monitor {
+        position: static;
+        order: -1;          /* monitor above lists */
+        margin: 0 auto 2rem;
+    }
+
+    .monitor-inner {
+        width: min(360px, 100%);
+    }
+}
+
+/* while matrix intro is running, lock scroll */
+body.loading {
+    overflow: hidden;
+}
+
+/* once main content is live, scroll normally */
+body {
+    margin: 0;
+    padding: 0;
 }
