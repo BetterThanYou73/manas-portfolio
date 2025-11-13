@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manas Joshi | Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="https://manasjoshi.space/assets/logo.png">
     <link rel="stylesheet" href="style.css">
 
     <!-- Essential Meta -->
@@ -120,7 +121,6 @@
             <ul class="skills-lines">
                 <li>C / C++</li>
                 <li>RISC-V &amp; Embedded Assembly</li>
-                <li>Microcontrollers &amp; FPGAs</li>
                 <li>Git &amp; Linux</li>
             </ul>
             </div>
@@ -170,14 +170,12 @@
             <p class="footer-text">
                 MADE BY MANAS J<span id="footer-disc">O</span>SHI
             </p>
-            <!-- local audio is optional – leave src empty or point to an mp3 -->
+
+            <!-- Only ONE audio tag -->
             <audio id="footer-audio" src="assets/bgm.mp3" preload="auto"></audio>
         </footer>
 
-        <!-- hidden audio, plays on click -->
-        <audio id="footer-audio" src="assets/bgm.mp3" preload="auto"></audio>
-    </div>
-
+        
     <!-- PAGE-SPECIFIC JS (skills + easter egg) -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -189,7 +187,7 @@
         // scripts for each category
         const monitorScripts = {
             ai: `> ai_stack.sh\n  loading: ML, DL, RL, EEG/BCI, NLP ...`,
-            systems: `> bare_metal.sh\n  loading: C, C++, RISC-V, MCUs, FPGAs ...`,
+            systems: `> bare_metal.sh\n  loading: C, C++, RISC-V, Embedded, Linux ...`,
             web: `> frontend.sh\n  loading: HTML, CSS, JS, GSAP, tooling ...`
         };
 
@@ -257,34 +255,22 @@
 
         /* ---------- FOOTER DISC AUDIO EASTER EGG -------------------- */
 
-        const disc   = document.getElementById("footer-disc");
-        const audio  = document.getElementById("footer-audio");
+        const disc  = document.getElementById("footer-disc");
+        const audio = document.getElementById("footer-audio");
         let isPlaying = false;
 
-        const spotifyURL =
-            "https://open.spotify.com/track/5ghIJDpPoe3CfHMGu71E6T"; // swap to your song
-
-        if (disc) {
+        if (disc && audio) {
             disc.addEventListener("click", () => {
-
+                // first time: turn the "O" into a disc
                 if (!disc.classList.contains("disc-active")) {
                     disc.classList.add("disc-active");
                 }
 
-                if (!audio) {
-                    window.open(spotifyURL, "_blank", "noopener");
-                    return;
-                }
-
                 if (!isPlaying) {
-                    audio.play()
-                        .then(() => {
-                            disc.classList.add("disc-spin");
-                            isPlaying = true;
-                        })
-                        .catch(() => {
-                            window.open(spotifyURL, "_blank", "noopener");
-                        });
+                    audio.play().then(() => {
+                        disc.classList.add("disc-spin");
+                        isPlaying = true;
+                    });
                 } else {
                     audio.pause();
                     disc.classList.remove("disc-spin");
@@ -292,7 +278,9 @@
                 }
             });
         }
-    });
+
+        }
+    );
     </script>
 
 

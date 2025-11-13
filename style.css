@@ -15,6 +15,7 @@ body {
   background: radial-gradient(circle at top, #04110a 0, #020805 40%, #000 100%);
   color: var(--text-main);
   overflow-x: hidden;
+  background: #000; /* or your dark bg */
 }
 
 /* matrix canvas stays behind everything */
@@ -1551,4 +1552,163 @@ body::-webkit-scrollbar-thumb {
   opacity: 1;
   filter: none;
   transform: translateX(0);
+}
+
+#footer-disc {
+    display: inline-block;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+#footer-disc.disc-active {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-image: url("assets/disc.png");
+    background-size: cover;
+    background-position: center;
+    filter: drop-shadow(0 0 6px #00ff99);
+}
+
+#footer-disc.disc-spin {
+    animation: spinDisc 2s linear infinite;
+}
+
+@keyframes spinDisc {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.skills-monitor {
+    transform: scale(0.85);
+}
+
+@media(max-width: 900px) {
+    .skills-monitor {
+        transform: scale(0.65);
+        margin-left: -20px;
+    }
+}
+
+@media(max-width: 600px) {
+    .skills-monitor {
+        transform: scale(0.55);
+        margin: 0 auto;
+    }
+}
+
+/* O → logo styling */
+#footer-logo {
+    width: 26px;
+    height: 26px;
+    transform-origin: center;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* When morphs into disc image */
+#footer-disc.disc-active #footer-logo {
+    opacity: 0;
+}
+
+/* Replace background with disc */
+#footer-disc.disc-active {
+    display: inline-flex;
+    width: 26px;
+    height: 26px;
+    background-image: url("assets/disc.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
+
+/* Spin animation */
+.disc-spin {
+    animation: spinDisc 2.5s linear infinite;
+}
+
+@keyframes spinDisc {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Fix white border issue on mobile */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+@media (max-width: 600px) {
+    .skills-monitor {
+        transform: scale(0.75);
+        transform-origin: top right;
+        margin-right: -20px;
+    }
+
+    .hero-card {
+        padding: 20px;
+    }
+
+    .hero-name {
+        font-size: 1.9rem;
+    }
+}
+
+/* === FINAL FOOTER DISC BEHAVIOUR === */
+
+
+.site-footer {
+    border-top: 1px solid rgba(0, 255, 140, 0.15);
+    padding: 1.5rem 5vw 2.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #a3ffd9;
+    background: #020a06;
+}
+
+.footer-text {
+    display: inline-block;
+}
+
+/* initial: plain "O" */
+#footer-disc {
+    display: inline-block;
+    cursor: pointer;
+    margin: 0 2px;
+    width: auto;
+    height: auto;
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: inherit;
+    transform: none;
+    filter: none;
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease,
+        color 0.3s ease,
+        background 0.3s ease;
+}
+
+/* after first click: becomes vinyl disc image */
+#footer-disc.disc-active {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-image: url("assets/disc.png");
+    background-size: cover;
+    background-position: center;
+    color: transparent; /* hide the 'O' glyph */
+    box-shadow: 0 0 8px rgba(0, 255, 160, 0.8);
+}
+
+/* spinning while music is playing */
+#footer-disc.disc-spin {
+    animation: footerDiscSpin 2.2s linear infinite;
+}
+
+@keyframes footerDiscSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
 }
