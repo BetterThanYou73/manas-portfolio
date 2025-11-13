@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404 | Page Lost in the Matrix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: black;
+            color: #00ff9a;
+            font-family: "Share Tech Mono", monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .glitch {
+            font-size: 2rem;
+            text-align: center;
+            position: relative;
+            animation: glitch 1s infinite;
+            letter-spacing: 0.18em;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 #00ff9a; }
+            20% { text-shadow: -2px -1px #00ffaa; }
+            40% { text-shadow: -1px 2px #00dd88; }
+            60% { text-shadow: 1px -2px #00ffb2; }
+            80% { text-shadow: -2px 1px #00cc77; }
+            100% { text-shadow: 2px -1px #00ff9a; }
+        }
+        .sub {
+            margin-top: 1rem;
+            opacity: 0.8;
+        }
+        a {
+            color: #00ffcc;
+            text-decoration: none;
+            border-bottom: 1px solid #00ffcc;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="glitch">404 — ACCESS DENIED</div>
+        <div class="sub">
+            This page slipped out of reality.<br><br>
+            → <a href="/">Return to Main Terminal</a>
+        </div>
+    </div>
+</body>
+</html>

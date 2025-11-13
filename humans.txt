@@ -1,0 +1,11 @@
+/* TEAM */
+Developer: Manas Joshi
+Website: https://manasjoshi.space
+GitHub: https://github.com/BetterThanYou73
+
+/* TECHNOLOGY */
+Built with: HTML, CSS, JS, GSAP, CRT effects, custom animations
+ML/Systems Experience: OpenBCI EEG Motion Imagery Classifier, TinyML MLP, RISC-V, FPGA, RL, TensorFlow, PyTorch
+
+/* LAST UPDATED */
+2025

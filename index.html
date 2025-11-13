@@ -6,6 +6,27 @@
     <title>Manas Joshi | Portfolio</title>
     <link rel="stylesheet" href="style.css">
 
+    <!-- Essential Meta -->
+    <meta name="description" content="Manas Joshi — Developer specializing in ML, Reinforcement Learning, Embedded Systems, and creative front-end experiences.">
+    <meta name="author" content="Manas Joshi">
+    <meta name="keywords" content="Manas Joshi, Machine Learning, Embedded Systems, Reinforcement Learning, Portfolio, Developer, RISC-V, OpenBCI, FPGA">
+
+    <!-- Open Graph (Social Preview) -->
+    <meta property="og:title" content="Manas Joshi | Developer Portfolio">
+    <meta property="og:description" content="ML • RL • Embedded • EEG • Systems • Web — what I build & break.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://manasjoshi.space">
+    <meta property="og:image" content="https://manasjoshi.space/assets/preview.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Manas Joshi | Developer Portfolio">
+    <meta name="twitter:description" content="ML • RL • Embedded • EEG • Systems • Web — what I build & break.">
+    <meta name="twitter:image" content="https://manasjoshi.space/assets/preview.png">
+
+
+
+
     <!-- GSAP CDN (for matrix + other animations you already use) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -82,35 +103,39 @@
 
             <!-- DATA SCIENCE & AI -->
             <div class="skill-category" data-monitor="ai">
-                <h2 class="skills-heading">Data Science &amp; AI</h2>
-                <ul class="skills-lines">
+            <h2 class="skills-heading">Data Science &amp; AI</h2>
+            <ul class="skills-lines">
                 <li>Machine Learning &amp; Deep Learning</li>
                 <li>TensorFlow &amp; PyTorch</li>
-                <li>Reinforcement Learning</li>
+                <li>Reinforcement Learning (RL-Glue)</li>
+                <li>Scikit-learn</li>
                 <li>EEG / BCI (OpenBCI, MOABB)</li>
                 <li>NLP (NLTK, basic LMs)</li>
-                </ul>
+            </ul>
             </div>
 
             <!-- SYSTEMS & LOW-LEVEL -->
             <div class="skill-category" data-monitor="systems">
-                <h2 class="skills-heading">Systems &amp; Low-Level</h2>
-                <ul class="skills-lines">
+            <h2 class="skills-heading">Systems &amp; Low-Level</h2>
+            <ul class="skills-lines">
                 <li>C / C++</li>
                 <li>RISC-V &amp; Embedded Assembly</li>
                 <li>Microcontrollers &amp; FPGAs</li>
                 <li>Git &amp; Linux</li>
-                </ul>
+            </ul>
             </div>
 
             <!-- WEB & TOOLS -->
             <div class="skill-category" data-monitor="web">
-                <h2 class="skills-heading">Web &amp; Tools</h2>
-                <ul class="skills-lines">
-                <li>HTML / CSS / JS</li>
+            <h2 class="skills-heading">Web &amp; Tools</h2>
+            <ul class="skills-lines">
+                <li>HTML / CSS / JavaScript</li>
+                <li>Django &amp; Flask</li>
+                <li>REST APIs (LeafletJS, OpenWeather)</li>
+                <li>MySQL &amp; basic SQL</li>
                 <li>GSAP &amp; front-end motion</li>
                 <li>VS Code / GitHub</li>
-                </ul>
+            </ul>
             </div>
 
             <!-- TEMPLATE: add more blocks like this
@@ -146,23 +171,22 @@
                 MADE BY MANAS J<span id="footer-disc">O</span>SHI
             </p>
             <!-- local audio is optional – leave src empty or point to an mp3 -->
-            <audio id="footer-audio" src="audio/your-track.mp3"></audio>
+            <audio id="footer-audio" src="assets/bgm.mp3" preload="auto"></audio>
         </footer>
 
         <!-- hidden audio, plays on click -->
-        <audio id="easterEggAudio" src="asssets/your_song.mp3" preload="auto"></audio>
+        <audio id="footer-audio" src="assets/bgm.mp3" preload="auto"></audio>
     </div>
 
     <!-- PAGE-SPECIFIC JS (skills + easter egg) -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-
         /* ---------- SKILL CATEGORIES + MONITOR TYPEWRITER ---------- */
 
         const monitorText = document.getElementById("monitorText");
-        const categories = document.querySelectorAll(".skill-category");
+        const categories  = document.querySelectorAll(".skill-category");
 
-        // little scripts for each category – you can edit these
+        // scripts for each category
         const monitorScripts = {
             ai: `> ai_stack.sh\n  loading: ML, DL, RL, EEG/BCI, NLP ...`,
             systems: `> bare_metal.sh\n  loading: C, C++, RISC-V, MCUs, FPGAs ...`,
@@ -170,26 +194,31 @@
         };
 
         let typingTimer = null;
+        const monitorOrder = [];     // keys in the order they were revealed
 
-        function typeMonitor(key) {
-            const text = monitorScripts[key];
-            if (!monitorText || !text) return;
+        function typeMonitorCombined() {
+            if (!monitorText || !monitorOrder.length) return;
+
+            // full log = all triggered blocks stacked with a blank line in between
+            const fullText = monitorOrder
+            .map(key => monitorScripts[key])
+            .filter(Boolean)
+            .join("\n\n");
 
             if (typingTimer) clearTimeout(typingTimer);
 
             const el = monitorText;
             el.classList.remove("monitor-glitch");
-            void el.offsetWidth;          // force reflow to replay animation
+            void el.offsetWidth;             // restart glitch animation
             el.classList.add("monitor-glitch");
 
             let i = 0;
             el.textContent = "";
-
-            const speed = 28;             // ms per character
+            const speed = 28;                // ms per character
 
             const step = () => {
-            el.textContent = text.slice(0, i);
-            if (i < text.length) {
+            el.textContent = fullText.slice(0, i);
+            if (i < fullText.length) {
                 i++;
                 typingTimer = setTimeout(step, speed);
             }
@@ -197,12 +226,11 @@
             step();
         }
 
-        // set per-line delay for staggered appearance
+        // per-line delay for staggered list animation
         document.querySelectorAll(".skills-lines li").forEach((li, idx) => {
             li.style.setProperty("--line-delay", `${idx * 70}ms`);
         });
 
-        // observe each skill category
         if (categories.length && monitorText) {
             const observer = new IntersectionObserver(
             entries => {
@@ -213,38 +241,37 @@
                 cat.classList.add("active");
 
                 const key = cat.dataset.monitor;
-                if (key) typeMonitor(key);
+                if (key && !monitorOrder.includes(key)) {
+                    monitorOrder.push(key);
+                    typeMonitorCombined();
+                }
 
-                observer.unobserve(cat);    // each block only triggers once
+                observer.unobserve(cat);   // each category only triggers once
                 });
             },
-            { threshold: 0.4 }
+            { threshold: 0.35 }
             );
 
             categories.forEach(cat => observer.observe(cat));
-
-            // start with the first one
-            const firstKey = categories[0]?.dataset.monitor;
-            if (firstKey) typeMonitor(firstKey);
         }
 
         /* ---------- FOOTER DISC AUDIO EASTER EGG -------------------- */
 
-        const disc = document.getElementById("footer-disc");
-        const audio = document.getElementById("footer-audio");
+        const disc   = document.getElementById("footer-disc");
+        const audio  = document.getElementById("footer-audio");
         let isPlaying = false;
 
-        const spotifyURL = "https://open.spotify.com/track/5ghIJDpPoe3CfHMGu71E6T"; // put your song here
+        const spotifyURL =
+            "https://open.spotify.com/track/5ghIJDpPoe3CfHMGu71E6T"; // swap to your song
 
         if (disc) {
             disc.addEventListener("click", () => {
-                // first click: turn into vinyl
+
                 if (!disc.classList.contains("disc-active")) {
                     disc.classList.add("disc-active");
                 }
 
-                // if no audio element or no src -> just open Spotify
-                if (!audio || !audio.src) {
+                if (!audio) {
                     window.open(spotifyURL, "_blank", "noopener");
                     return;
                 }
@@ -256,7 +283,6 @@
                             isPlaying = true;
                         })
                         .catch(() => {
-                            // browser refused audio or file missing -> fallback to Spotify
                             window.open(spotifyURL, "_blank", "noopener");
                         });
                 } else {
