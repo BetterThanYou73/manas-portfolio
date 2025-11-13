@@ -1,8 +1,10 @@
-window.onload = () => {
-    startMatrixAnimation();
-};
+window.onload = () => startMatrixAnimation();
 
-// MATRIX CANVAS
+let bgFade = 1;
+let frozenCanvas = null;
+let frozenCtx = null;
+
+// CANVAS
 const canvas = document.getElementById("matrixCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -11,162 +13,142 @@ let state = "rain";
 const FINAL_TEXT = "ACCESS GRANTED";
 const MORPH_FONT_SIZE = 28;
 
-// scramble lock array
 let scramble = [];
-let bandProgress = 0; // 0 → 1 (expanding band)
+let bandProgress = 0;
+let fadeSteps = 0;      // how many frames we've been fading
+let morphFrames = 0;    // how many frames we've been morphing
 
-// initialize scramble array
-for (let i = 0; i < FINAL_TEXT.length; i++) {
-    scramble[i] = 0;
-}
+for (let i = 0; i < FINAL_TEXT.length; i++) scramble[i] = 0;
 
 function startMatrixAnimation() {
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 
-    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*():?><";
-    letters = letters.split("");
-
-    let fontSize = 14;
-    let columns = canvas.width / fontSize;
-
-    let drops = [];
-    for (let i = 0; i < columns; i++) drops[i] = 0;
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*():?><".split("");
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    let drops = new Array(columns).fill(0);
 
     function draw() {
-
-        /*--------------------------------------
-        | CLEAR FRAME (except during morph)
-        --------------------------------------*/
-        if (state !== "morph") {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
-            ctx.shadowBlur = 0;
+        // CLEAR BACKGROUND
+        if (state === "morph") {
+            // during morph: FULL clear, no trails at all
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else if (state === "fade") {
+            // during fade we DON'T wipe the frame first – we darken it gradually below
+            ctx.globalAlpha = 1;
+        } else {
+            // during rain/slowdown/freeze/fade: trailing clear
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = "rgba(0,0,0,0.08)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
-        /*--------------------------------------
-        | NORMAL MATRIX RAIN
-        --------------------------------------*/
-        ctx.fillStyle = "#0F0";
-        ctx.font = fontSize + "px arial";
-        ctx.shadowColor = "#0F0";
-        ctx.shadowBlur = 3;
+        // fade the frozen matrix frame
+        if (state === "fade") {
+            // overlay semi-transparent black each frame → matrix disappears smoothly
+            ctx.globalAlpha = 0.12;           // fade strength per frame (tweak me)
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha = 1;
 
-        for (let i = 0; i < drops.length; i++) {
+            fadeSteps++;
 
-            if (state === "morph") break;
-
-            if (state === "rain") drops[i] += 1;
-            else if (state === "slowdown") drops[i] += 0.7;
-            else if (state === "freeze") drops[i] += 0;
-
-            const char = letters[Math.floor(Math.random() * letters.length)];
-            ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-
-            if ((state === "rain" || state === "slowdown") &&
-                drops[i] * fontSize > canvas.height &&
-                Math.random() > 0.975) {
-                drops[i] = 0;
+            // after enough frames, the background is basically black → start morph
+            if (fadeSteps > 20) {             // fade duration ≈ fadeSteps * 33 ms
+                fadeSteps = 0;
+                scramble = scramble.map(() => 0);
+                bandProgress = 0;
+                morphFrames = 0;
+                state = "morph";
             }
-        }
-
-        /*--------------------------------------
-        | MORPH PHASE — SCRAMBLE EFFECT
-        --------------------------------------*/
-        if (state === "morph") {
-
-            ctx.font = `${MORPH_FONT_SIZE}px "Courier New", monospace`;
-
-            const textMetrics = ctx.measureText(FINAL_TEXT);
-            const textWidth = textMetrics.width;
-
-            const startX = (canvas.width - textWidth) / 2;
-            const targetY = canvas.height / 2;
-
-
-            /*--------------------------------------
-            | EXPANDING BAND (center → outward)
-            --------------------------------------*/
-            bandProgress = Math.min(1, bandProgress + 0.03); // speed
-            const fullWidth = canvas.width;
-            const currentWidth = fullWidth * bandProgress;
-            const centerX = canvas.width / 2;
-
-            const bandHeight = MORPH_FONT_SIZE * 2.2;
-            const bandTop = targetY - MORPH_FONT_SIZE * 1.3;
-
-            ctx.save();
-            ctx.fillStyle = "rgba(0,0,0,0.55)";
-            ctx.fillRect(centerX - currentWidth / 2, bandTop, currentWidth, bandHeight);
-            ctx.restore();
-
-
-            /*--------------------------------------
-            | SCRAMBLE LOCK-IN LOGIC
-            --------------------------------------*/
-            for (let i = 0; i < FINAL_TEXT.length; i++) {
-                if (scramble[i] === 0 && Math.random() < 0.06) {
-                    scramble[i] = 1;
-                }
-            }
-
-            /*--------------------------------------
-            | BUILD DISPLAY STRING
-            --------------------------------------*/
-            let displayText = "";
-            for (let i = 0; i < FINAL_TEXT.length; i++) {
-                if (scramble[i] === 1 || FINAL_TEXT[i] === " ") {
-                    displayText += FINAL_TEXT[i];
-                } else {
-                    displayText += letters[Math.floor(Math.random() * letters.length)];
-                }
-            }
-
-            /*--------------------------------------
-            | DRAW FINAL SCRAMBLE TEXT
-            --------------------------------------*/
-            ctx.fillStyle = "#0F0";
-            ctx.shadowColor = "rgba(0,255,0,0.5)";
-            ctx.shadowBlur = 8;
-
-            ctx.fillText(displayText, startX, targetY);
             return;
         }
 
-        if (state === "complete") return;
+        // MATRIX RAIN (rain / slowdown / freeze)
+        if (state !== "morph") {
+            ctx.fillStyle = "#0F0";
+            ctx.font = `${fontSize}px arial`;
+            ctx.shadowBlur = 3;
+
+            for (let i = 0; i < drops.length; i++) {
+
+                if (state === "rain")    drops[i] += 1;
+                if (state === "slowdown") drops[i] += 0.8; // slowing down
+                if (state === "freeze") drops[i] += 0;   // fully frozen
+
+                const ch = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
+
+                if ((state === "rain" || state === "slowdown") &&
+                    drops[i] * fontSize > canvas.height &&
+                    Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+            }
+        }
+
+        // morph to final text
+        if (state === "morph") {
+
+            ctx.globalAlpha = 1;
+            ctx.shadowBlur = 0;
+
+            ctx.font = `${MORPH_FONT_SIZE}px "Courier New", monospace`;
+            const textWidth = ctx.measureText(FINAL_TEXT).width;
+            const x = (canvas.width - textWidth) / 2;
+            const y = canvas.height / 2;   // centered vertically
+
+            morphFrames++;
+
+            // scramble lock – starts from all random, resolves over ~1–1.5s
+            const lockProb = 0.07;         // ↑ for faster, ↓ for slower morph
+            for (let i = 0; i < FINAL_TEXT.length; i++) {
+                if (scramble[i] === 0 && Math.random() < lockProb) {
+                    scramble[i] = 1;
+                }
+            }
+            // safety: force full text after ~2s even if RNG is unlucky
+            if (morphFrames > 60) scramble.fill(1);
+
+            // output string
+            let out = "";
+            for (let i = 0; i < FINAL_TEXT.length; i++) {
+                out += scramble[i]
+                    ? FINAL_TEXT[i]
+                    : letters[Math.floor(Math.random() * letters.length)];
+            }
+
+            ctx.fillStyle = "#0F0";
+            ctx.shadowBlur = 2;   // tiny glow; set to 0 if you want super crisp
+            ctx.fillText(out, x, y);
+
+            return;
+        }
     }
 
-    let interval = setInterval(draw, 33);
+    const interval = setInterval(draw, 33);
 
+    /* TIMELINE (Smooth & Realistic) */
 
-    /*--------------------------------------
-    | TIMELINE
-    --------------------------------------*/
+    setTimeout(() => state = "slowdown", 4500);  // tweak: when slowing starts
+    setTimeout(() => state = "freeze",   6200);  // tweak: when it fully freezes
+    setTimeout(() => {                   // start fading immediately after freeze
+        bgFade = 1;
+        fadeSteps = 0;
+        state = "fade";
+    }, 6200);
 
     setTimeout(() => {
-        state = "slowdown";
+        clearInterval(interval);
 
-        setTimeout(() => { state = "freeze"; }, 1000);
+        gsap.to("#matrixCanvas", { opacity: 0, duration: 2 });
+        gsap.to("#mainContent", { opacity: 1, duration: 2, delay: 0.4 });
 
-        setTimeout(() => {
-            scramble = scramble.map(() => 0);
-            bandProgress = 0;
-            state = "morph";
-        }, 3000);
+        // allow scrolling once content is visible
+        document.body.style.overflowY = "auto";
 
-        setTimeout(() => {
-            state = "complete";
-            clearInterval(interval);
-
-            setTimeout(() =>
-                gsap.to("#matrixCanvas", { opacity: 0, duration: 2 })
-            , 1500);
-
-            gsap.to("#mainContent", { opacity: 1, duration: 2, delay: 0.3 });
-            gsap.from("#nameTitle", { y: 50, opacity: 0, duration: 1 });
-            gsap.from("#introText", { y: 20, opacity: 0, duration: 1, delay: 0.5 });
-
-        }, 5000);
-
-    }, 6000);
+    }, 10000);
 }

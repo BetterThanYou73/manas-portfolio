@@ -17,24 +17,121 @@
     <canvas id="matrixCanvas"></canvas>
 
     <!-- MAIN CONTENT WRAPPER (initially hidden) -->
-    <div id="mainContent" class="hidden">
-        <header>
-            <nav>
-                <ul class="nav-links">
-                    <li>Home</li>
-                    <li>Education</li>
-                    <li>Experience</li>
-                    <li>Projects</li>
-                    <li>Contact</li>
-                </ul>
-            </nav>
-        </header>
+    <div id="mainContent">
+    <!-- TOP NAVBAR -->
+    <header class="top-nav">
+        <div class="nav-logo">MJ</div>
+        <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-        <section id="hero">
-            <h1 id="nameTitle">MANAS JOSHI</h1>
-            <p id="introText">Developer • Designer • Problem Solver</p>
+    <main>
+        <!-- HERO / GLASS CARD -->
+        <section id="home" class="hero-section">
+        <div class="hero-card">
+            <p class="hero-eyebrow">ACCESS: APPROVED</p>
+
+            <h1 id="nameTitle" class="hero-name">MANAS JOSHI</h1>
+
+            <p id="introText" class="hero-subtitle">
+            A developer exploring machine learning, systems, and creative software projects.
+            </p>
+
+            <!-- socials row -->
+            <div class="hero-socials">
+            <!-- change hrefs to your real links -->
+            <a href="https://github.com/BetterThanYou73" target="_blank" rel="noopener noreferrer">
+                GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/manas-joshi-employee-of-the-year/" target="_blank" rel="noopener noreferrer">
+                LinkedIn
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                Instagram
+            </a>
+            </div>
+
+            <!-- main CTAs -->
+            <div class="hero-ctas">
+            <a href="#projects" class="btn-primary">View Projects</a>
+            <a href="#contact" class="btn-ghost">Contact</a>
+            </div>
+        </div>
         </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="skills-section">
+        <h2 class="section-title">Skills</h2>
+        <p class="section-subtitle">Stuff I actually enjoy working with.</p>
+
+        <div class="skills-grid">
+            <!-- left/right alternating flow; add/remove freely -->
+            <div class="skill-pill slide-in-left">Python</div>
+            <div class="skill-pill slide-in-right">TensorFlow</div>
+            <div class="skill-pill slide-in-left">Machine Learning</div>
+            <div class="skill-pill slide-in-right">Reinforcement Learning</div>
+            <div class="skill-pill slide-in-left">RISC-V Assembly</div>
+            <div class="skill-pill slide-in-right">C / C++</div>
+            <div class="skill-pill slide-in-left">Web (HTML / CSS / JS)</div>
+            <div class="skill-pill slide-in-right">Git & Linux</div>
+
+            <!-- TEMPLATE TO ADD MORE SKILLS:
+            <div class="skill-pill slide-in-left">New Skill</div>
+            <div class="skill-pill slide-in-right">Another Skill</div>
+            -->
+        </div>
+        </section>
+
+        <!-- STUBS FOR OTHER SECTIONS (so nav links work) -->
+        <section id="education" class="stub-section">
+        <h2 class="section-title">Education</h2>
+        <p class="section-subtitle">Add your degree + highlights here.</p>
+        </section>
+
+        <section id="experience" class="stub-section">
+        <h2 class="section-title">Experience</h2>
+        <p class="section-subtitle">Internships, jobs, and cool roles.</p>
+        </section>
+
+        <section id="projects" class="stub-section">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">List key projects with short descriptions.</p>
+        </section>
+
+        <section id="contact" class="stub-section">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle">Email + any contact form later.</p>
+        </section>
+    </main>
     </div>
+
+    <script>
+    // skills scroll-in animation
+    document.addEventListener("DOMContentLoaded", () => {
+        const skills = document.querySelectorAll(".skill-pill");
+
+        const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("in-view");
+                observer.unobserve(entry.target); // animate only once
+            }
+            });
+        },
+        {
+            threshold: 0.25
+        }
+        );
+
+        skills.forEach((pill) => observer.observe(pill));
+    });
+    </script>
 
     <script src="script.js"></script>
 </body>
