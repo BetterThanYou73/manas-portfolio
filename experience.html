@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Manas Joshi | Experience</title>
+    <link rel="icon" type="image/x-icon" href="https://manasjoshi.space/assets/logo.png">
+
+    <!-- global css -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- experience-specific css -->
+    <link rel="stylesheet" href="experience.css">
+
+    <!-- gsap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+
+<body class="experience-page">
+
+<!-- ====================== -->
+<!-- HEADER (KEEP GLOBAL)  -->
+<!-- ====================== -->
+<header class="top-nav">
+    <div class="nav-logo">MJ</div>
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#skills">Skills</a>
+        <a href="education.html">Education</a>
+        <a href="experience.html" class="active">Experience</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+
+<!-- ====================== -->
+<!-- BACKGROUND ANIMATION   -->
+<!-- unique per page        -->
+<!-- ====================== -->
+<div class="xp-bg">
+    <canvas id="xp-matrix"></canvas>
+</div>
+
+
+<main class="experience-main">
+
+    <!-- page label -->
+    <section class="exp-hero">
+        <div class="exp-eyebrow">Experiences</div>
+        <h1 class="exp-title">Timeline</h1>
+        <p class="exp-subtitle">
+            My journey through various projects and roles in tech and machine learning.
+        </p>
+    </section>
+
+    <!-- WAVE TIMELINE STRIP -->
+    <section class="exp-wave-section">
+        <div class="exp-wave-wrap" id="expWaveWrap">
+            <canvas id="expWave"></canvas>
+            <div class="exp-node-layer" id="expNodeLayer"></div>
+        </div>
+    </section>
+
+    <!-- TIMELINE ITEMS (these drive the nodes) -->
+    <section class="exp-timeline" id="expTimeline">
+
+        <!-- 1) Bionix -->
+        <article class="exp-item">
+            <header class="exp-item-header">
+                <div class="exp-item-title">
+                    <span class="exp-item-label">Bionix · EMG & RL Systems</span>
+
+                    <!-- ADD THIS -->
+                    <span class="exp-item-tag volunteer">Volunteer</span>
+                </div>
+                <div class="exp-item-dates">
+                    Oct 2025 — Present
+                </div>
+            </header>
+            <p class="exp-item-body">
+                Building reinforcement-learning driven assistance systems for leg-amputee mobility using EMG signals.
+                Working on RL control for prosthetic legs, collecting and processing EMG data.
+            </p>
+        </article>
+
+        <!-- 2) NatHacks -->
+        <article class="exp-item">
+            <header class="exp-item-header">
+                <div class="exp-item-title">
+                    <span class="exp-item-label">NatHacks 2025 · MedTech Division</span>
+                    <span class="exp-item-tag volunteer">Volunteer</span>
+                </div>
+                <div class="exp-item-dates">
+                    Nov 7 — Nov 10, 2025
+                </div>
+            </header>
+            <p class="exp-item-body">
+                Placed <strong>2nd</strong> under Bionix. Built an EEG-based motion-imagery classifier using OpenBCI.
+                Extracted CSP features, implemented a live 4-class decoding pipeline, and developed real-time
+                visualizations for neurofeedback.
+            </p>
+        </article>
+
+        <!--- <span class="exp-item-tag internship">Internship</span> -->
+
+        <!-- when you add more items, just copy another <article class="exp-item"> ... -->
+
+    </section>
+
+</main>
+
+<!-- FOOTER / EASTER EGG -->
+        <footer class="site-footer">
+            <p class="footer-text">
+                MADE BY MANAS J<span id="footer-disc">O</span>SHI
+            </p>
+
+            <!-- Only ONE audio tag -->
+            <audio id="footer-audio" src="assets/bgm.mp3" preload="auto"></audio>
+        </footer>
+
+
+<script src="experience-wave.js"></script>
+
+<!-- ====================== -->
+<!-- JS FOR WARP LINES     -->
+<!-- ====================== -->
+<script>
+const canvas = document.getElementById("xp-lines");
+const ctx = canvas.getContext("2d");
+
+let lines = [];
+let mouse = { x: 0, y: 0 };
+
+function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = 220;
+    lines = [];
+    for (let i = 0; i < 16; i++) {
+        lines.push({ y: (i+1) * (canvas.height / 18) });
+    }
+}
+resize();
+window.addEventListener("resize", resize);
+
+document.addEventListener("mousemove", (e) => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+});
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "rgba(0,255,153,0.55)";
+    ctx.lineWidth = 1;
+
+    lines.forEach((line) => {
+        ctx.beginPath();
+        for (let x = 0; x < canvas.width; x++) {
+            const d = Math.hypot(mouse.x - x, mouse.y - line.y);
+            const w = Math.max(0, 60 - d) * 0.4;
+            ctx.lineTo(x, line.y + (mouse.y < line.y ? -w : w));
+        }
+        ctx.stroke();
+    });
+
+    requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+<script>
+    
+        /* ---------- FOOTER DISC AUDIO EASTER EGG -------------------- */
+
+        const disc  = document.getElementById("footer-disc");
+        const audio = document.getElementById("footer-audio");
+
+        if (disc && audio) {
+            let hasMorphed = false;  // did we already turn O -> disc?
+            let isPlaying  = false;
+
+            disc.addEventListener("click", () => {
+                // first click: turn the letter into the disc
+                if (!hasMorphed) {
+                    disc.classList.add("disc-active");
+                    hasMorphed = true;
+                }
+
+                if (!isPlaying) {
+                    audio.play().then(() => {
+                        disc.classList.add("disc-spin");
+                        isPlaying = true;
+                    }).catch(err => {
+                        console.error("Audio play failed:", err);
+                    });
+                } else {
+                    audio.pause();
+                    disc.classList.remove("disc-spin");
+                    isPlaying = false;
+                }
+            });
+        }
+
+
+
+</script>
+
+
+<!-- ====================== -->
+<!-- JS FOR MATRIX BG WAVES -->
+<!-- ====================== -->
+<script>
+const matrix = document.getElementById("xp-matrix");
+const mtx = matrix.getContext("2d");
+
+function resizeMatrix() {
+    matrix.width = window.innerWidth;
+    matrix.height = window.innerHeight;
+}
+resizeMatrix();
+window.addEventListener("resize", resizeMatrix);
+
+let t = 0;
+function animateMatrix() {
+    t += 0.02;
+    mtx.clearRect(0,0,matrix.width,matrix.height);
+
+    for (let y = 0; y < matrix.height; y += 20) {
+        for (let x = 0; x < matrix.width; x += 20) {
+            const wave = Math.sin((x + t*50)/100) * 14;
+            mtx.fillStyle = "rgba(0,255,153,0.05)";
+            mtx.fillRect(x, y + wave, 2, 2);
+        }
+    }
+
+    requestAnimationFrame(animateMatrix);
+}
+animateMatrix();
+</script>
+
+</body>
+</html>
