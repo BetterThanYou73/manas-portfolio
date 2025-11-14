@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Manas Joshi | Contact</title>
+
+    <!-- your main styles -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- gsap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+</head>
+
+<body class="contact-page">
+    
+    
+    <header class="top-nav">
+        <div class="nav-logo">MJ</div>
+        <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="experience.html">Experience</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html" class="active">Contact</a>
+        </nav>
+    </header>
+
+
+    <section id="contact" class="contact-section">
+    <!-- overlay: laser lines + wireframe -->
+    <div class="contact-overlay">
+        <div class="laser-line"></div>
+        <div class="laser-line"></div>
+        <div class="laser-line"></div>
+        <div id="contact-grid"></div>
+    </div>
+
+    <!-- centered card + outline -->
+    <div class="contact-center">
+        <!-- SVG outline that gets “laser drawn” -->
+        <svg id="card-outline" viewBox="0 0 420 240" preserveAspectRatio="xMidYMid meet">
+        <rect
+            x="10"
+            y="10"
+            width="400"
+            height="220"
+            rx="14"
+            ry="14"
+        />
+        </svg>
+
+        <!-- The actual card -->
+        <div id="contact-card">
+        <div class="card-row-top">
+            <span>+1&nbsp;825&nbsp;966&nbsp;0691</span>
+            <span><a href="https://manasjoshi.space" target="_blank" rel="noopener noreferrer">MANASJOSHI.SPACE</a></span>
+        </div>
+
+        <h2>MANAS JOSHI</h2>
+        <p class="card-role">ML · REINFORCEMENT LEARNING · SYSTEMS</p>
+
+        <div class="card-bottom-info">
+            <div class="left-info">
+                <span>EDMONTON · CANADA</span>
+                <a href="https://github.com/BetterThanYou73" target="_blank">GITHUB</a>
+            </div>
+
+            <div class="right-info">
+                <a href="mailto:manas2005mj@email.com">MANAS2005MJ@EMAIL.COM</a>
+                <a href="https://www.linkedin.com/in/manas-joshi-employee-of-the-year/" target="_blank">LINKEDIN</a>
+            </div>
+        </div>
+
+        <p class="card-tagline">BETTER THAN PAUL ALLEN’S CARD.</p>
+
+        <div class="card-cta-row">
+            <a href="assets/Manas_Joshi_Resume.pdf" class="card-btn" download>
+            DOWNLOAD CV
+            </a>
+        </div>
+        </div>
+    </div>
+    </section>
+
+<footer class="site-footer contact-footer">
+  <span>DESIGNED &amp; BUILT BY MANAS JOSHI</span>
+</footer>
+
+<script src="contact-card.js"></script>
+
+<script>
+  // === depth sway (rotateX + rotateY) ===
+(function () {
+  const card = document.getElementById('contact-card');
+  if (!card) return;
+
+  let isDragging = false;
+  let startX = 0, startY = 0;
+  let rotX = 0, rotY = 0;
+
+  card.style.transformOrigin = "center";
+  card.style.transition = "transform 0.2s ease-out";
+
+  card.addEventListener("pointerdown", e => {
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    card.setPointerCapture(e.pointerId);
+    card.style.transition = "none";
+  });
+
+  card.addEventListener("pointermove", e => {
+    if (!isDragging) return;
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    rotY = dx * 0.08;  // rotate left/right
+    rotX = -dy * 0.08; // rotate forward/back
+
+    // clamp (keep subtle)
+    rotX = Math.max(-8, Math.min(8, rotX));
+    rotY = Math.max(-8, Math.min(8, rotY));
+
+    card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  });
+
+  function endDrag(e) {
+    if (!isDragging) return;
+    isDragging = false;
+
+    try { card.releasePointerCapture(e.pointerId); } catch (_) {}
+
+    card.style.transition = "transform 0.25s ease-out";
+    card.style.transform = "rotateX(0deg) rotateY(0deg)";
+  }
+
+  card.addEventListener("pointerup", endDrag);
+  card.addEventListener("pointercancel", endDrag);
+})();
+
+</script>
+
+</body>
+</html>

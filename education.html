@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Education | Manas Joshi</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Meta (can be lighter than index) -->
+    <meta name="description" content="Education and certifications of Manas Joshi — Computing Science student focusing on AI, ML, and RL." />
+    <meta name="author" content="Manas Joshi" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Education | Manas Joshi" />
+    <meta property="og:description" content="Current degree and ML / RL certifications." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://manasjoshi.space/education.html" />
+    <meta property="og:image" content="https://manasjoshi.space/assets/preview.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Education | Manas Joshi" />
+    <meta name="twitter:description" content="Current degree and ML / RL certifications." />
+    <meta name="twitter:image" content="https://manasjoshi.space/assets/preview.png" />
+
+    <!-- GSAP (matrix / shared animations) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="loading">
+    <!-- MATRIX BACKGROUND -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- PAGE CONTENT -->
+    <div id="mainContent">
+        <!-- NAVBAR (Education link highlighted) -->
+        <header class="top-nav">
+            <div class="nav-logo">MJ</div>
+            <nav class="nav-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#skills">Skills</a>
+                <a href="education.html" class="active">Education</a>
+                <a href="experience.html">Experience</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <!-- DEGREE CARD -->
+            <section class="edu-hero">
+                <div class="edu-card">
+                    <p class="edu-eyebrow">CURRENT DEGREE</p>
+
+                    <h1 class="edu-title">BSc Honours, Computing Science</h1>
+                    <p class="edu-subtitle">
+                        University of Alberta · Edmonton, Canada · 2023 – Present
+                    </p>
+
+                    <div class="edu-tags">
+                        <span>Artificial Intelligence</span>
+                        <span>Machine Learning</span>
+                        <span>Reinforcement Learning</span>
+                    </div>
+
+                    <p class="edu-body">
+                        Coursework across algorithms, computer architecture, data science, image vision, llms and reinforcement learning.
+                        Building projects that work with ML and systems with creative interfaces.
+                    </p>
+
+                    <div class="edu-links">
+                        <!-- update href when you drop the file in -->
+                        <a href="assets/Manas_Joshi_Resume.pdf" class="btn-ghost" download>
+                            Download CV
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CERTIFICATIONS -->
+            <section class="cert-section">
+                <h2 class="section-title">Certifications</h2>
+                <p class="section-subtitle">
+                    Extra coursework in reinforcement learning, TensorFlow, and Python-heavy CS.
+                </p>
+
+                <div class="cert-grid">
+                    <!-- Amii RL fundamentals -->
+                    <article class="cert-card">
+                        <div class="cert-left">
+                            <div class="cert-logo-circle">A</div>
+                            <div class="cert-timeline-dot"></div>
+                        </div>
+                        <div class="cert-main">
+                            <h3 class="cert-title">Fundamentals of Reinforcement Learning</h3>
+                            <p class="cert-issuer">Amii (Alberta Machine Intelligence Institute) · Oct 2024</p>
+                            <p class="cert-skills">Skills: Reinforcement Learning · Machine Learning · Artificial Intelligence</p>
+                            <!-- replace # with your PDF in assets/certifications/ -->
+                            <a href="https://www.coursera.org/account/accomplishments/verify/8NKJHAN1SKNB" target="_blank" class="cert-link">View credential</a>
+                        </div>
+                        <span class="cert-tag">RL</span>
+                    </article>
+
+                    <!-- Amii sample-based methods -->
+                    <article class="cert-card">
+                        <div class="cert-left">
+                            <div class="cert-logo-circle">A</div>
+                            <div class="cert-timeline-dot"></div>
+                        </div>
+                        <div class="cert-main">
+                            <h3 class="cert-title">Sample-based Learning Methods</h3>
+                            <p class="cert-issuer">Amii (Alberta Machine Intelligence Institute) · Oct 2024</p>
+                            <p class="cert-skills">Skills: Reinforcement Learning · Machine Learning · Policy Evaluation</p>
+                            <a href="https://www.coursera.org/account/accomplishments/verify/LXHEDIFN8N3L" target="_blank" class="cert-link">View credential</a>
+                        </div>
+                        <span class="cert-tag">RL</span>
+                    </article>
+
+                    <!-- DL.AI TF Developer specialization -->
+                    <article class="cert-card">
+                        <div class="cert-left">
+                            <div class="cert-logo-circle">DL</div>
+                            <div class="cert-timeline-dot"></div>
+                        </div>
+                        <div class="cert-main">
+                            <h3 class="cert-title">DeepLearning.AI TensorFlow Developer</h3>
+                            <p class="cert-issuer">DeepLearning.AI · Jul 2024</p>
+                            <p class="cert-skills">
+                                Skills: TensorFlow · Keras · CNNs · NLP · RNNs · Transfer Learning · Time Series
+                            </p>
+                            <a href="https://www.coursera.org/account/accomplishments/specialization/T2GGNTT3P28U" target="_blank" class="cert-link">View credential</a>
+                        </div>
+                        <span class="cert-tag">TensorFlow</span>
+                    </article>
+
+                    <!-- NLP in TensorFlow -->
+                    <article class="cert-card">
+                        <div class="cert-left">
+                            <div class="cert-logo-circle">DL</div>
+                            <div class="cert-timeline-dot"></div>
+                        </div>
+                        <div class="cert-main">
+                            <h3 class="cert-title">Natural Language Processing in TensorFlow</h3>
+                            <p class="cert-issuer">DeepLearning.AI · Jul 2024</p>
+                            <p class="cert-skills">
+                                Skills: NLP · RNNs · TensorFlow · Deep Learning
+                            </p>
+                            <a href="https://www.coursera.org/account/accomplishments/verify/KTEBG22KLS66" target="_blank" class="cert-link">View credential</a>
+                        </div>
+                        <span class="cert-tag">NLP</span>
+                    </article>
+
+                    <!-- Sequences, Time Series and Prediction -->
+                    <article class="cert-card">
+                        <div class="cert-left">
+                            <div class="cert-logo-circle">DL</div>
+                            <div class="cert-timeline-dot"></div>
+                        </div>
+                        <div class="cert-main">
+                            <h3 class="cert-title">Sequences, Time Series and Prediction</h3>
+                            <p class="cert-issuer">DeepLearning.AI · Jul 2024</p>
+                            <p class="cert-skills">
+                                Skills: Time Series Forecasting · TensorFlow · Deep Learning
+                            </p>
+                            <a href="https://www.coursera.org/account/accomplishments/verify/225EMSJDN8M5" target="_blank" class="cert-link">View credential</a>
+                        </div>
+                        <span class="cert-tag">Time Series</span>
+                    </article>
+
+                    <!-- CNNs in TensorFlow -->
+                    <article class="cert-card">
+                        <div class="cert-left">
+                            <div class="cert-logo-circle">DL</div>
+                            <div class="cert-timeline-dot"></div>
+                        </div>
+                        <div class="cert-main">
+                            <h3 class="cert-title">Convolutional Neural Networks in TensorFlow</h3>
+                            <p class="cert-issuer">DeepLearning.AI · Jun 2024</p>
+                            <p class="cert-skills">
+                                Skills: CNNs · Computer Vision · Transfer Learning · TensorFlow
+                            </p>
+                            <a href="https://www.coursera.org/account/accomplishments/verify/U4K9DBX3JE98" target="_blank" class="cert-link">View credential</a>
+                        </div>
+                        <span class="cert-tag">CV</span>
+                    </article>
+
+                    <!-- Intro to TensorFlow -->
+                    <article class="cert-card">
+                        <div class="cert-left">
+                            <div class="cert-logo-circle">DL</div>
+                            <div class="cert-timeline-dot"></div>
+                        </div>
+                        <div class="cert-main">
+                            <h3 class="cert-title">
+                                Introduction to TensorFlow for AI, ML, and Deep Learning
+                            </h3>
+                            <p class="cert-issuer">DeepLearning.AI · Jun 2024</p>
+                            <p class="cert-skills">
+                                Skills: TensorFlow · Machine Learning · Deep Learning
+                            </p>
+                            <a href="https://coursera.org/verify/VM3XXNYDPRDY" target="_blank" class="cert-link">View credential</a>
+                        </div>
+                        <span class="cert-tag">TensorFlow</span>
+                    </article>
+
+                    <!-- MITx 6.00.2x -->
+                    <article class="cert-card">
+                        <div class="cert-left">
+                            <div class="cert-logo-circle">MIT</div>
+                            <div class="cert-timeline-dot"></div>
+                        </div>
+                        <div class="cert-main">
+                            <h3 class="cert-title">
+                                MITx 6.00.2x – Introduction to Computational Thinking and Data Science
+                            </h3>
+                            <p class="cert-issuer">edX · May 2022</p>
+                            <p class="cert-skills">
+                                Skills: Python · Data Science · Matplotlib · Algorithms
+                            </p>
+                            <a href="https://courses.edx.org/certificates/9515ee48604547b7860d897e3fc720b9" target="_blank" class="cert-link">View credential</a>
+                        </div>
+                        <span class="cert-tag">Data Science</span>
+                    </article>
+
+                    <!-- MITx 6.00.1x -->
+                    <article class="cert-card">
+                        <div class="cert-left">
+                            <div class="cert-logo-circle">MIT</div>
+                            <div class="cert-timeline-dot"></div>
+                        </div>
+                        <div class="cert-main">
+                            <h3 class="cert-title">
+                                MITx 6.00.1x – Introduction to CS and Programming Using Python
+                            </h3>
+                            <p class="cert-issuer">edX · Feb 2022</p>
+                            <p class="cert-skills">
+                                Skills: Python · Computer Science Foundations · Algorithms
+                            </p>
+                            <a href="https://courses.edx.org/certificates/81f760b3866a4a07ad90f0420c0fedfc" target="_blank" class="cert-link">View credential</a>
+                        </div>
+                        <span class="cert-tag">CS</span>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER (same disc easter egg behaviour as index after our fixes) -->
+        <footer class="site-footer">
+            <p class="footer-text">
+                MADE BY MANAS J<span id="footer-disc">O</span>SHI
+            </p>
+            <audio id="footer-audio" src="assets/bgm.mp3" preload="auto"></audio>
+        </footer>
+    </div>
+
+    <!-- Footer disc JS only -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const disc = document.getElementById("footer-disc");
+            const audio = document.getElementById("footer-audio");
+
+            if (disc && audio) {
+                let hasMorphed = false;
+                let isPlaying  = false;
+
+                disc.addEventListener("click", () => {
+                    if (!hasMorphed) {
+                        disc.classList.add("disc-active");
+                        hasMorphed = true;
+                    }
+
+                    if (!isPlaying) {
+                        audio.play().then(() => {
+                            disc.classList.add("disc-spin");
+                            isPlaying = true;
+                        }).catch(err => console.error("Audio play failed:", err));
+                    } else {
+                        audio.pause();
+                        disc.classList.remove("disc-spin");
+                        isPlaying = false;
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Matrix background / reveal -->
+    <script src="script.js"></script>
+</body>
+</html>
