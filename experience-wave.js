@@ -1,146 +1,177 @@
-// experience-wave.js
+// experience-wave.js  — sacred timeline, node-locked strands
 (() => {
-  const wrap = document.getElementById("expWaveWrap");
-  const canvas = document.getElementById("expWave");
-  const ctx = canvas.getContext("2d");
-  const nodeLayer = document.getElementById("expNodeLayer");
-  const items = Array.from(document.querySelectorAll(".exp-item"));
+    const wrap = document.getElementById("expWaveWrap");
+    const canvas = document.getElementById("expWave");
+    const ctx = canvas.getContext("2d");
+    const nodeLayer = document.getElementById("expNodeLayer");
+    const items = Array.from(document.querySelectorAll(".exp-item"));
 
-  if (!wrap || !canvas || !ctx) return;
+    if (!wrap || !canvas || !ctx || !items.length) return;
 
-  // canvas size
-  let w = 0;
-  let h = 0;
+    let w = 0, h = 0;
 
-  // wave config
-  const lineCount = 14;
-  const baseAmplitude = 26;
-  const falloff = 0.015;
-  const waveFreq = 0.055;
-  const speed = 0.8;
+    // each strand: { y, ratio }  (ratio = node X in [0,1])
+    const strands = [];
+    const nodeElements = [];
+    const hoverIndex = { index: -1 };
 
-  // mouse warp
-  let mouse = { x: 0.5, y: 0.4 };
-  let targetMouse = { x: 0.5, y: 0.4 };
+    const baseAmp = 22;
 
-  function resize() {
-    const rect = wrap.getBoundingClientRect();
-    w = rect.width;
-    h = rect.height;
+    let mouse = { x: 0.5, y: 0.5 };
+    let targetMouse = { x: 0.5, y: 0.5 };
 
-    canvas.width = w * window.devicePixelRatio;
-    canvas.height = h * window.devicePixelRatio;
-    ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    // ------------------ sizing / setup ------------------
+    function resize() {
+        const rect = wrap.getBoundingClientRect();
+        w = rect.width;
+        h = rect.height;
 
-    positionNodes();
-  }
+        canvas.width = w * window.devicePixelRatio;
+        canvas.height = h * window.devicePixelRatio;
+        ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
 
-  // create nodes + tick marks
-  function positionNodes() {
-    if (!nodeLayer) return;
-    nodeLayer.innerHTML = "";
-
-    const total = items.length;
-    if (!total) return;
-
-    items.forEach((item, idx) => {
-      const ratio = (idx + 1) / (total + 1); // evenly spaced %
-
-      // --- glowing node ---
-      const node = document.createElement("div");
-      node.className = "exp-node";
-      node.style.left = `${ratio * 100}%`;
-      nodeLayer.appendChild(node);
-
-      // --- timeline tick mark ---
-      const tick = document.createElement("div");
-      tick.className = "exp-tick";
-      tick.style.left = `${ratio * 100}%`;
-      nodeLayer.appendChild(tick);
-
-      // pass CSS var to card
-      item.style.setProperty("--node-x", `${ratio * 100}%`);
-    });
-  }
-
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  function animate(t) {
-    requestAnimationFrame(animate);
-    if (!w || !h) return;
-
-    mouse.x = lerp(mouse.x, targetMouse.x, 0.08);
-    mouse.y = lerp(mouse.y, targetMouse.y, 0.08);
-
-    ctx.clearRect(0, 0, w, h);
-    ctx.lineWidth = 1.1;
-    ctx.lineCap = "round";
-
-    const time = t * 0.001;
-
-    // ------------------------
-    // DRAW THE LIQUID WAVE LINES
-    // ------------------------
-    for (let i = 0; i < lineCount; i++) {
-      const yBase = h * 0.18 + (h * 0.55 * i) / (lineCount - 1);
-
-      ctx.beginPath();
-      for (let x = 0; x <= w; x += 2) {
-        const dx = x - mouse.x * w;
-        const dy = yBase - mouse.y * h;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        // wave blend layers
-        const wave =
-          Math.sin(x * 0.008 + t * 0.0015 + i * 0.2) * 8 +
-          Math.sin(x * 0.018 + t * 0.0035 + i * 0.4) * 5 +
-          Math.sin(x * 0.003 + t * 0.0007 + i * 1.1) * 6;
-
-        // mouse warp
-        const warp =
-          baseAmplitude *
-          Math.exp(-dist * falloff) *
-          Math.cos(dist * waveFreq - time * speed);
-
-        const y = yBase + wave * 0.4 + warp;
-
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-
-      const alpha = 0.2 + (i / lineCount) * 0.55;
-      ctx.strokeStyle = `rgba(0,255,154,${alpha})`;
-      ctx.stroke();
+        buildStrands();
+        positionNodes();
     }
 
-    // ------------------------
-    // STRAIGHT TIMELINE BASELINE
-    // ------------------------
-    const timelineY = h * 0.62;
+    function buildStrands() {
+        strands.length = 0;
+        const N = items.length;
 
-    ctx.beginPath();
-    ctx.moveTo(0, timelineY);
-    ctx.lineTo(w, timelineY);
-    ctx.strokeStyle = "rgba(0,255,154,0.45)";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-  }
+        for (let i = 0; i < N; i++) {
+            const y = h * 0.25 + (i / (N - 1 || 1)) * h * 0.45;
+            // give a default ratio; will be overwritten in positionNodes
+            const ratio = (i + 1) / (N + 1);
+            strands.push({ y, ratio });
+        }
+    }
 
-  wrap.addEventListener("mousemove", (e) => {
-    const rect = wrap.getBoundingClientRect();
-    targetMouse.x = (e.clientX - rect.left) / rect.width;
-    targetMouse.y = (e.clientY - rect.top) / rect.height;
-  });
+    function positionNodes() {
+        nodeLayer.innerHTML = "";
+        nodeElements.length = 0;
 
-  wrap.addEventListener("mouseleave", () => {
-    targetMouse.x = 0.5;
-    targetMouse.y = 0.4;
-  });
+        const rect = wrap.getBoundingClientRect();
+        const N = items.length;
 
-  window.addEventListener("resize", resize);
+        items.forEach((item, i) => {
+            const ratio = (i + 1) / (N + 1);      // 0–1 along width
+            const strandY = strands[i].y;
 
-  resize();
-  requestAnimationFrame(animate);
+            const node = document.createElement("div");
+            node.className = "exp-node sacred-node";
+            node.style.left = `${ratio * 100}%`;
+            node.style.top  = `${(strandY / h) * 100}%`;
+
+            nodeLayer.appendChild(node);
+            nodeElements.push(node);
+
+            // store ratio on strand so drawing code knows node X
+            strands[i].ratio = ratio;
+
+            // CSS vars for vertical connectors under the card
+            item.style.setProperty("--node-x", `${ratio * 100}%`);
+            item.style.setProperty("--node-y", `${(strandY / h) * 100}%`);
+
+            // hover → highlight this strand + card
+            node.addEventListener("mouseenter", () => {
+                hoverIndex.index = i;
+                item.classList.add("exp-hover");
+            });
+
+            node.addEventListener("mouseleave", () => {
+                hoverIndex.index = -1;
+                item.classList.remove("exp-hover");
+            });
+        });
+    }
+
+    // ------------------ animation ------------------
+    function lerp(a, b, t) {
+        return a + (b - a) * t;
+    }
+
+    function animate(t) {
+        requestAnimationFrame(animate);
+
+        if (!w || !h) return;
+
+        mouse.x = lerp(mouse.x, targetMouse.x, 0.08);
+        mouse.y = lerp(mouse.y, targetMouse.y, 0.08);
+
+        ctx.clearRect(0, 0, w, h);
+        const time = t * 0.001;
+
+        strands.forEach((strand, i) => {
+            const yBase   = strand.y;
+            const ratio   = strand.ratio ?? 0.5;
+            const nodeX   = ratio * w;
+
+            // ---- compute offset at the node, so we can re-zero the curve there ----
+            const dxNode = nodeX - mouse.x * w;
+            const dyNode = yBase - mouse.y * h;
+            const distNode = Math.sqrt(dxNode * dxNode + dyNode * dyNode);
+
+            const waveNode =
+                Math.sin(nodeX * 0.01 + time * 1.4) * 4 +
+                Math.sin(nodeX * 0.02 + time * 0.7) * 3 +
+                Math.sin(nodeX * 0.004 - time * 2.0) * 6;
+
+            const warpNode =
+                baseAmp *
+                Math.exp(-distNode * 0.01) *
+                Math.cos(distNode * 0.03 - time * 1.4);
+
+            const nodeOffset = waveNode + warpNode * 0.35;
+
+            // ---- draw strand, re-centred so offset(nodeX) = 0 ----
+            ctx.beginPath();
+
+            for (let x = 0; x <= w; x += 3) {
+                const dx = x - mouse.x * w;
+                const dy = yBase - mouse.y * h;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                const wave =
+                    Math.sin(x * 0.01 + time * 1.4) * 4 +
+                    Math.sin(x * 0.02 + time * 0.7) * 3 +
+                    Math.sin(x * 0.004 - time * 2.0) * 6;
+
+                const warp =
+                    baseAmp *
+                    Math.exp(-dist * 0.01) *
+                    Math.cos(dist * 0.03 - time * 1.4);
+
+                const offset = (wave + warp * 0.35) - nodeOffset;
+                const y = yBase + offset;
+
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+
+            const glow = hoverIndex.index === i ? 1 : 0;
+            ctx.strokeStyle = glow
+                ? "rgba(0,255,160,0.9)"
+                : "rgba(0,255,140,0.38)";
+            ctx.lineWidth = glow ? 2.4 : 1.4;
+            ctx.lineCap = "round";
+            ctx.stroke();
+        });
+    }
+
+    // ------------------ interaction ------------------
+    wrap.addEventListener("mousemove", (e) => {
+        const rect = wrap.getBoundingClientRect();
+        targetMouse.x = (e.clientX - rect.left) / rect.width;
+        targetMouse.y = (e.clientY - rect.top) / rect.height;
+    });
+
+    wrap.addEventListener("mouseleave", () => {
+        targetMouse.x = 0.5;
+        targetMouse.y = 0.5;
+    });
+
+    window.addEventListener("resize", resize);
+
+    resize();
+    requestAnimationFrame(animate);
 })();

@@ -2940,19 +2940,6 @@ body.experience-page {
   pointer-events: none;
 }
 
-/* a single node dot */
-.exp-node {
-  position: absolute;
-  bottom: 32px; /* distance from bottom of wave block */
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #00ff9a;
-  box-shadow:
-    0 0 12px rgba(0, 255, 154, 0.8),
-    0 0 26px rgba(0, 255, 154, 0.6);
-  transform: translateX(-50%);
-}
 
 /* small label floating above node (optional later) */
 .exp-node::after {
@@ -3052,7 +3039,7 @@ body.experience-page {
 /* pulsing event nodes */
 .exp-node {
     position: absolute;
-    top: 60%;
+    top: 63%;
     width: 13px;
     height: 13px;
     background: #00ff9a;
@@ -3076,4 +3063,43 @@ body.experience-page {
     height: 24px;
     background: rgba(0,255,154,0.45);
     transform: translateX(-50%);
+}
+
+/* vertical connector line from timeline → event card */
+.exp-connector {
+    position: absolute;
+    top: 63%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 70px;   /* adjust to match spacing to cards */
+    background: linear-gradient(
+        to bottom,
+        rgba(0,255,153,0.8),
+        rgba(0,255,153,0)
+    );
+    pointer-events: none;
+}
+
+/* horizontal sacred-timeline energy streak */
+.exp-energy {
+    position: absolute;
+    top: 62%;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(
+        to right,
+        rgba(0,255,154,0),
+        rgba(0,255,154,1),
+        rgba(0,255,154,0)
+    );
+    transform: translate(-100%, -50%);
+    opacity: .85;
+    filter: blur(2px);
+    animation: energyPulse 1.6s infinite ease-in-out;
+}
+
+@keyframes energyPulse {
+    0% { transform: translate(-120%, -50%); opacity: 0.5; }
+    50% { transform: translate(-100%, -50%); opacity: 1; }
+    100% { transform: translate(-120%, -50%); opacity: 0.5; }
 }
