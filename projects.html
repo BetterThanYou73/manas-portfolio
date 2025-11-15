@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Manas Joshi | Projects</title>
+  <link rel="icon" type="image/x-icon" href="https://manasjoshi.space/assets/logo.png" />
+
+  <!-- your global styles -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- page styles for timeline + matrix -->
+  <link rel="stylesheet" href="projects.css" />
+</head>
+
+<body class="projects-page">
+<header class="top-nav">
+  <div class="nav-logo">MJ</div>
+  <nav class="nav-links">
+    <a href="index">Home</a>
+    <a href="education">Education</a>
+    <a href="experience">Experience</a>
+    <a href="projects" class="active">Projects</a>
+    <a href="contact">Contact</a>
+  </nav>
+</header>
+
+<main class="projects-main">
+
+  <!-- HERO -->
+  <section class="projects-hero">
+    <div class="exp-eyebrow">Projects</div>
+    <h1 class="hero-title">SACRED TIMELINE</h1>
+    <p class="hero-subtitle">
+      A curated selection of my most significant projects.
+    </p>
+  </section>
+
+  <!-- TIMELINE TV -->
+<section class="projects-shell">
+  <div class="timeline-crt">
+    <canvas id="timelineCanvas"></canvas>
+
+    <!-- must be EMPTY, JS will fill it -->
+    <div id="timelineNodeLayer" class="timeline-node-layer"></div>
+
+    <!-- boot overlay -->
+    <div class="crt-boot" id="crtBoot">
+      <div class="crt-boot-inner">
+        <div id="crtBootText" class="crt-boot-text"></div>
+        <div class="crt-boot-scan"></div>
+        <button id="crtSkipBtn" class="crt-skip-btn">SKIP &gt;</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-bottom">
+    <div class="timeline-log">
+      <div class="timeline-log-header">
+        <span>EVENT#</span>
+        <span>DATE</span>
+        <span>TYPE</span>
+        <span>STACK</span>
+      </div>
+      <div class="timeline-log-body" id="timelineLog"></div>
+    </div>
+
+    <aside class="timeline-details" id="projectDetails">
+      <h3 class="details-title">Waiting for TVA scan…</h3>
+      <p class="details-body">
+        After boot, hover a dot or a row to inspect a project.
+      </p>
+    </aside>
+  </div>
+</section>
+
+
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p class="footer-text">
+    MADE BY MANAS J<span id="footer-disc">O</span>SHI
+  </p>
+  <audio id="footer-audio" src="assets/bgm.mp3" preload="auto"></audio>
+</footer>
+
+<!-- Timeline engine -->
+<script src="projects.js"></script>
+
+<!-- Disc Easter Egg (unchanged) -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const disc  = document.getElementById("footer-disc");
+  const audio = document.getElementById("footer-audio");
+  if (!disc || !audio) return;
+
+  let morphed = false;
+  let playing = false;
+
+  disc.addEventListener("click", () => {
+    if (!morphed) {
+      disc.classList.add("disc-active");
+      morphed = true;
+    }
+
+    if (!playing) {
+      audio.play().then(() => {
+        disc.classList.add("disc-spin");
+        playing = true;
+      }).catch(console.error);
+    } else {
+      audio.pause();
+      disc.classList.remove("disc-spin");
+      playing = false;
+    }
+  });
+});
+</script>
+</body>
+</html>

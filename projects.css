@@ -1,0 +1,704 @@
+/* ========== MATRIX BACKGROUND ========== */
+
+body.projects-page {
+  background: #010904;
+  overflow-x: hidden;
+}
+
+.matrix-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: #020b06;
+  pointer-events: none;
+}
+
+.matrix-bg canvas {
+  width: 100%;
+  height: 100%;
+  opacity: 0.22;
+}
+
+/* ========== TV SHELL / GLASS CRT ========== */
+
+.projects-shell {
+  max-width: 1100px;
+  margin: 3rem auto 4rem;
+  padding: 2.5rem 2.5rem 2.2rem;
+  border-radius: 2rem;
+  background: radial-gradient(circle at top, rgba(0,255,153,0.22), #020805);
+  box-shadow: 0 0 70px rgba(0,255,153,0.28);
+}
+
+.timeline-crt {
+  border-radius: 1.8rem;
+  padding: 0.14rem;
+  background: radial-gradient(circle at top, rgba(0,255,153,0.4), rgba(0,255,153,0.02));
+}
+
+.timeline-glass {
+  position: relative;
+  border-radius: 1.6rem;
+  background: radial-gradient(circle at top, rgba(7,24,18,0.9), rgba(2,4,3,0.96));
+  box-shadow:
+    0 0 40px rgba(0,255,153,0.5) inset,
+    0 0 40px rgba(0,255,153,0.25);
+  padding: 1.4rem 1.6rem;
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+}
+
+/* Canvas fills the glass */
+#timelineCanvas {
+  width: 100%;
+  height: 240px;
+  display: block;
+  border-radius: 1.1rem;
+}
+
+/* Node overlay */
+.timeline-node-layer {
+  pointer-events: none;
+  position: absolute;
+  top: 1.4rem;
+  left: 1.6rem;
+  right: 1.6rem;
+  bottom: 1.4rem;
+}
+
+/* Node button */
+.timeline-node {
+  pointer-events: auto;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: "Space Mono", monospace;
+}
+
+.timeline-node-id {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: rgba(0,255,153,0.8);
+}
+
+.timeline-node-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #00ffcc;
+  box-shadow: 0 0 13px rgba(0,255,190,1);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.timeline-node.is-active .timeline-node-dot {
+  background: #ffb260;
+  box-shadow: 0 0 26px rgba(255,178,96,1);
+  transform: scale(1.4);
+}
+
+/* BOOT OVERLAY INSIDE TV */
+
+.crt-boot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.7), rgba(0,0,0,0.96));
+  z-index: 10;
+}
+
+.crt-boot-inner {
+  position: relative;
+  width: 92%;
+  height: 78%;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(0,255,153,0.45);
+  box-shadow: 0 0 35px rgba(0,255,153,0.35) inset;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.2rem 1.6rem;
+}
+
+.crt-boot-text {
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  color: #c8ffdd;
+  letter-spacing: 0.14em;
+  white-space: pre-line;
+}
+
+.crt-boot-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,153,0.85), transparent);
+  animation: crtScan 1.4s linear infinite;
+}
+
+.crt-skip-btn {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.1rem;
+  padding: 0.3rem 0.9rem;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  border-radius: 999px;
+  border: 1px solid rgba(0,255,153,0.8);
+  background: rgba(0,10,4,0.9);
+  color: #b5ffe0;
+  cursor: pointer;
+}
+
+.crt-boot.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleY(0.97);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+@keyframes crtScan {
+  0%   { transform: translateY(-40%); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(40%); opacity: 0; }
+}
+
+/* ========== BOTTOM LOG + DETAILS ========== */
+
+.timeline-bottom {
+  display: flex;
+  gap: 1.4rem;
+  margin-top: 1.5rem;
+}
+
+.timeline-log {
+  flex: 2.4;
+  background: radial-gradient(circle at top, #020f09, #010503);
+  border-radius: 1.2rem;
+  padding: 0.9rem 1rem;
+}
+
+.timeline-log-header,
+.timeline-log-row {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr 1.6fr 4fr;
+  column-gap: 0.5rem;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+}
+
+.timeline-log-header {
+  opacity: 0.7;
+  margin-bottom: 0.4rem;
+}
+
+.timeline-log-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.timeline-log-row {
+  border-radius: 999px;
+  padding: 0.35rem 0.6rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: #d6ffe9;
+  cursor: pointer;
+}
+
+.timeline-log-row.is-active {
+  background: linear-gradient(90deg,
+    rgba(255,178,96,0.28),
+    rgba(255,178,96,0.08));
+}
+
+/* DETAILS PANEL */
+
+.timeline-details {
+  flex: 1.8;
+  background: radial-gradient(circle at top, #020f0a, #010403);
+  border-radius: 1.2rem;
+  padding: 1rem 1.2rem;
+  font-size: 14px;
+  color: #e1fff2;
+}
+
+.details-title {
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.details-meta {
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  opacity: 0.75;
+  margin-bottom: 0.6rem;
+}
+
+.details-body {
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 0.7rem;
+}
+
+.details-stack {
+  font-size: 12px;
+  opacity: 0.86;
+  margin-bottom: 0.7rem;
+}
+
+.details-link {
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9fffd2;
+}
+
+/* ========== MOBILE SIMPLE LIST ========== */
+
+.projects-mobile {
+  display: none;
+  max-width: 640px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+}
+
+.projects-mobile-title {
+  font-size: 20px;
+  letter-spacing: 0.18em;
+  margin-bottom: 1rem;
+}
+
+.mobile-project {
+  border-radius: 1.1rem;
+  background: radial-gradient(circle at top left, #04140d, #020604);
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.9rem;
+  font-size: 14px;
+}
+
+.mobile-meta {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+/* breakpoint */
+@media (max-width: 768px) {
+  .projects-shell { display: none; }
+  .projects-mobile { display: block; }
+}
+
+/* --- position hero nicely above the TV --- */
+.projects-main {
+  position: relative;
+  z-index: 1;
+}
+
+.projects-hero {
+  max-width: 1100px;
+  margin: 6rem auto 1.5rem;
+  padding: 0 2.5rem;
+}
+
+/* node label + dot styling (unchanged, for clarity) */
+.timeline-node {
+  pointer-events: auto;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: "Space Mono", monospace;
+}
+
+.timeline-node-id {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: rgba(0,255,153,0.8);
+}
+
+.timeline-node-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #00ffcc;
+  box-shadow: 0 0 13px rgba(0,255,190,1);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.timeline-node.is-active .timeline-node-dot {
+  background: #ffb260;
+  box-shadow: 0 0 26px rgba(255,178,96,1);
+  transform: scale(1.4);
+}
+
+/* -------- MATRIX BACKGROUND -------- */
+
+body.projects-page {
+  background: radial-gradient(circle at top, #020c07, #010302);
+  color: #f3fff7;
+  min-height: 100vh;
+}
+
+/* You can reuse this class name on experience.html body too */
+body.projects-page::before,
+body.experience-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.14;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(circle at top, rgba(0, 255, 153, 0.12), transparent 55%),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 255, 153, 0.10) 0px,
+      rgba(0, 255, 153, 0.10) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    repeating-linear-gradient(
+      to right,
+      rgba(0, 255, 153, 0.08) 0px,
+      rgba(0, 255, 153, 0.08) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+  z-index: -1;
+}
+
+/* -------- HERO -------- */
+
+.projects-main {
+  padding: 4rem 1.5rem 5rem;
+}
+
+.projects-hero {
+  max-width: 1100px;
+  margin: 0 auto 2.5rem;
+}
+
+.projects-hero .hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.projects-hero .hero-title {
+  font-size: 32px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.projects-hero .hero-subtitle {
+  max-width: 520px;
+  font-size: 14px;
+  opacity: 0.76;
+}
+
+/* -------- TV SHELL / CRT -------- */
+
+.timeline-shell {
+  max-width: 1100px;
+  margin: 0 auto 3.5rem;
+  padding: 2.3rem 2.3rem 2.1rem;
+  border-radius: 2rem;
+  background: radial-gradient(circle at top, rgba(0, 255, 153, 0.16), #020806);
+  box-shadow:
+    0 0 60px rgba(0, 255, 153, 0.25),
+    0 0 0 1px rgba(0, 255, 153, 0.08);
+}
+
+.timeline-crt {
+  position: relative;
+  border-radius: 1.7rem;
+  background: radial-gradient(circle at top, #050e08, #020403);
+  padding: 1.4rem 1.6rem;
+  overflow: hidden;
+  box-shadow:
+    0 0 35px rgba(0, 255, 153, 0.25) inset,
+    0 0 0 1px rgba(0, 255, 153, 0.08);
+}
+
+#projectsCanvas {
+  width: 100%;
+  height: 240px;
+  display: block;
+  border-radius: 1.1rem;
+}
+
+/* -------- NODES OVERLAY -------- */
+
+.timeline-node-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 1.4rem 1.6rem auto 1.6rem;
+}
+
+.timeline-node {
+  pointer-events: auto;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: "Space Mono", monospace;
+}
+
+.timeline-node-id {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: rgba(0, 255, 153, 0.8);
+}
+
+.timeline-node-dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #00ff99;
+  box-shadow: 0 0 14px rgba(0, 255, 153, 0.95);
+}
+
+.timeline-node.is-active .timeline-node-dot {
+  background: #ffb45a;
+  box-shadow: 0 0 20px rgba(255, 180, 90, 1);
+}
+
+/* -------- BOTTOM ROW: TABLE + DETAILS -------- */
+
+.timeline-bottom {
+  display: flex;
+  gap: 1.4rem;
+  margin-top: 1.4rem;
+}
+
+.timeline-log {
+  flex: 2.4;
+  background: radial-gradient(circle at top, #020805, #010302);
+  border-radius: 1.2rem;
+  padding: 0.9rem 1.1rem;
+  box-shadow: 0 0 0 1px rgba(0, 255, 153, 0.05);
+}
+
+.timeline-log-header,
+.timeline-log-row {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr 1.5fr 4fr;
+  column-gap: 0.6rem;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+}
+
+.timeline-log-header {
+  opacity: 0.6;
+  margin-bottom: 0.4rem;
+}
+
+.timeline-log-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.timeline-log-row {
+  border-radius: 999px;
+  padding: 0.35rem 0.6rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: #d6ffe9;
+  cursor: pointer;
+  transition: background 0.15s ease-out;
+}
+
+.timeline-log-row:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 153, 0.1),
+    rgba(0, 255, 153, 0.02)
+  );
+}
+
+.timeline-log-row.is-active {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 180, 90, 0.18),
+    rgba(255, 180, 90, 0.03)
+  );
+}
+
+/* details panel */
+
+.timeline-details {
+  flex: 1.8;
+  background: radial-gradient(circle at top, #020806, #010301);
+  border-radius: 1.2rem;
+  padding: 1rem 1.2rem;
+  font-size: 14px;
+  color: #e1fff2;
+  box-shadow: 0 0 0 1px rgba(0, 255, 153, 0.05);
+}
+
+.details-title {
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.details-meta {
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  opacity: 0.7;
+  margin-bottom: 0.7rem;
+}
+
+.details-body {
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 0.7rem;
+}
+
+.details-stack {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-bottom: 0.8rem;
+}
+
+.details-link {
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9fffd2;
+}
+
+/* -------- MOBILE -------- */
+
+@media (max-width: 768px) {
+  .timeline-shell {
+    padding: 1.6rem 1.3rem;
+  }
+
+  .timeline-bottom {
+    flex-direction: column;
+  }
+
+  #projectsCanvas {
+    height: 190px;
+  }
+}
+
+/* -------- CRT BOOT OVERLAY (inside TV) -------- */
+
+.crt-boot {
+  position: absolute;
+  inset: 1.4rem 1.6rem 1.4rem 1.6rem; /* matches canvas padding */
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  pointer-events: auto;
+  background: radial-gradient(circle at center,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.96)
+  );
+  z-index: 10;
+}
+
+.crt-boot-inner {
+  position: relative;
+  margin: auto;
+  width: 96%;
+  height: 80%;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 255, 153, 0.4);
+  box-shadow: 0 0 30px rgba(0, 255, 153, 0.25) inset;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.2rem 1.6rem;
+}
+
+.crt-boot-text {
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  color: #c8ffdd;
+  letter-spacing: 0.12em;
+}
+
+.crt-boot-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 153, 0.7),
+    transparent
+  );
+  animation: crtScan 1.3s linear infinite;
+}
+
+.crt-skip-btn {
+  position: absolute;
+  right: 1.3rem;
+  bottom: 1rem;
+  padding: 0.3rem 0.9rem;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 255, 153, 0.7);
+  background: rgba(0, 10, 4, 0.9);
+  color: #b5ffe0;
+  cursor: pointer;
+}
+
+.crt-boot-fade {
+  opacity: 0;
+  transition: opacity 0.35s ease-out;
+}
+
+@keyframes crtScan {
+  0%   { transform: translateY(-40%); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(40%); opacity: 0; }
+}
+
+
