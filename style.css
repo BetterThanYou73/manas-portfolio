@@ -3103,3 +3103,304 @@ body.experience-page {
     50% { transform: translate(-100%, -50%); opacity: 1; }
     100% { transform: translate(-120%, -50%); opacity: 0.5; }
 }
+
+
+/* ===== GLOBAL 3D HOLOGRAM PAGE TRANSITION ===== */
+
+/* give the whole scene some perspective */
+body {
+  perspective: 1400px;
+  perspective-origin: center;
+}
+
+/* main shell that we spin / scale */
+.page-holo {
+  position: relative;
+  min-height: 100vh;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  animation: holoIn 0.75s cubic-bezier(0.18, 0.82, 0.25, 1) both;
+}
+
+/* exit state: zoom out, spin, become an orb */
+.page-holo--out {
+  animation: holoOut 0.65s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* green hologram glow during transition */
+.page-holo-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background:
+    radial-gradient(circle at center,
+      rgba(0, 255, 153, 0.35) 0,
+      rgba(0, 20, 10, 0.96) 55%,
+      #000 80%);
+  mix-blend-mode: screen;
+}
+
+/* visible glow */
+.page-holo-glow--visible {
+  opacity: 1;
+}
+
+/* ENTRY: orb zooms IN and flattens into the page */
+@keyframes holoIn {
+  0% {
+    transform:
+      translate3d(0, 0, -400px)
+      scale(0.28)
+      rotateY(-30deg)
+      rotateX(8deg);
+    opacity: 0;
+    border-radius: 50%;
+    filter: blur(8px);
+  }
+  40% {
+    opacity: 1;
+    border-radius: 40%;
+  }
+  100% {
+    transform:
+      translate3d(0, 0, 0)
+      scale(1)
+      rotateY(0deg)
+      rotateX(0deg);
+    opacity: 1;
+    border-radius: 0;
+    filter: blur(0);
+  }
+}
+
+/* EXIT: page shrinks, curves into a sphere and spins away */
+@keyframes holoOut {
+  0% {
+    transform:
+      translate3d(0, 0, 0)
+      scale(1)
+      rotateY(0deg)
+      rotateX(0deg);
+    opacity: 1;
+    border-radius: 0;
+    filter: blur(0);
+  }
+  70% {
+    border-radius: 35%;
+  }
+  100% {
+    transform:
+      translate3d(0, 0, -450px)
+      scale(0.18)
+      rotateY(35deg)
+      rotateX(-10deg);
+    opacity: 0;
+    border-radius: 50%;
+    filter: blur(10px);
+  }
+}
+
+/* =========
+   PAGE WRAP
+   ========= */
+
+.page-wrap {
+  position: relative;
+  min-height: 100vh;
+  /* we’ll animate clip-path on this */
+  clip-path: circle(140% at 50% 50%);
+  transform-origin: 50% 40%;
+}
+
+/* ========================
+   HOLOGRAM GLOBE OVERLAY
+   ======================== */
+
+.globe-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at center,
+      rgba(0, 0, 0, 0.96),
+      rgba(0, 0, 0, 1));
+}
+
+/* scanlines to keep the CRT / matrix vibe */
+.globe-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 255, 153, 0.14) 0,
+      rgba(0, 255, 153, 0.14) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  mix-blend-mode: screen;
+}
+
+/* the orb itself */
+.globe {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+
+  background:
+    radial-gradient(circle at 30% 25%,
+      rgba(255, 255, 255, 0.85),
+      rgba(0, 255, 153, 0.4) 26%,
+      rgba(0, 30, 16, 1) 75%);
+
+  box-shadow:
+    0 0 40px rgba(0, 255, 153, 0.9),
+    0 0 120px rgba(0, 255, 153, 0.35);
+}
+
+/* soft core */
+.globe-core {
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%,
+      rgba(255, 255, 255, 0.8),
+      transparent 60%);
+}
+
+/* latitude rings */
+.globe-ring {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 153, 0.85),
+    transparent
+  );
+  box-shadow: 0 0 16px rgba(0, 255, 153, 0.9);
+  opacity: 0.9;
+}
+
+.globe-ring--1 { top: 32%; }
+.globe-ring--2 { top: 50%; }
+.globe-ring--3 { top: 68%; }
+
+/* moving scan streak across globe */
+.globe-scan {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 20% 10%,
+      rgba(0, 255, 153, 0.3),
+      transparent 55%);
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+/* hidden by default, scripts will animate */
+.globe-overlay--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* ===== PAGE TRANSITION OVERLAY ===== */
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* visible state */
+.page-transition.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* used only on the *new* page to fade out */
+.page-transition.is-fading-out {
+  transition: opacity 0.45s ease-out;
+  opacity: 0;
+}
+
+/* black film over everything */
+.page-transition-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #00150a, #000000);
+  opacity: 0.95;
+}
+
+/* container for moving lines */
+.page-transition-lines {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* band across the middle with a few TVA-style lines */
+.page-transition-band {
+  position: relative;
+  width: 110%;
+  height: 28%;
+  max-height: 260px;
+  mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  overflow: hidden;
+  filter: drop-shadow(0 0 12px rgba(0, 255, 153, 0.5));
+}
+
+/* main line layer */
+.page-transition-band::before,
+.page-transition-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 26px,
+    rgba(0, 255, 153, 0.6) 27px,  /* thin bright line */
+    transparent 28px
+  );
+}
+
+/* foreground / background parallax motion */
+.page-transition-band::before {
+  animation: transitionLinesMove 0.7s linear infinite;
+}
+
+.page-transition-band::after {
+  opacity: 0.45;
+  animation: transitionLinesMove 1.1s linear infinite reverse;
+}
+
+/* horizontal sweep */
+@keyframes transitionLinesMove {
+  0%   { transform: translateX(-60px); }
+  100% { transform: translateX(60px); }
+}
