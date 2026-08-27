@@ -134,7 +134,7 @@ function startMatrixAnimation() {
 
             fadeSteps++;
 
-            if (fadeSteps > 20) {
+            if (fadeSteps > 10) {
                 fadeSteps = 0;
                 scramble = scramble.map(() => 0);
                 bandProgress = 0;
@@ -152,8 +152,8 @@ function startMatrixAnimation() {
 
             for (let i = 0; i < drops.length; i++) {
 
-                if (state === "rain")    drops[i] += 1;
-                if (state === "slowdown") drops[i] += 0.8; // slowing down
+                if (state === "rain")    drops[i] += 2.6;
+                if (state === "slowdown") drops[i] += 1.8; // slowing down
                 if (state === "freeze") drops[i] += 0;   // fully frozen
 
                 const ch = letters[Math.floor(Math.random() * letters.length)];
@@ -181,14 +181,14 @@ function startMatrixAnimation() {
             morphFrames++;
 
             // scramble lock
-            const lockProb = 0.07;
+            const lockProb = 0.18;
             for (let i = 0; i < FINAL_TEXT.length; i++) {
                 if (scramble[i] === 0 && Math.random() < lockProb) {
                     scramble[i] = 1;
                 }
             }
             // safety
-            if (morphFrames > 60) scramble.fill(1);
+            if (morphFrames > 22) scramble.fill(1);
 
             // output string
             let out = "";
@@ -210,24 +210,24 @@ function startMatrixAnimation() {
 
     /* TIMELINE (Smooth & Realistic) */
 
-    setTimeout(() => state = "slowdown", 4500);
-    setTimeout(() => state = "freeze",   6200);
+    setTimeout(() => state = "slowdown", 900);
+    setTimeout(() => state = "freeze",   1400);
     setTimeout(() => {
         bgFade = 1;
         fadeSteps = 0;
         state = "fade";
-    }, 6200);
+    }, 1400);
 
     setTimeout(() => {
         clearInterval(interval);
 
         // Instead of killing the canvas, just soften it
-        gsap.to("#matrixCanvas", { opacity: 0.35, duration: 2 });
+        gsap.to("#matrixCanvas", { opacity: 0.35, duration: 0.7 });
 
         gsap.to("#mainContent", {
             opacity: 1,
-            duration: 2,
-            delay: 0.4,
+            duration: 0.7,
+            delay: 0.15,
             onComplete() {
                 document.body.style.overflowY = "auto";
                 document.body.classList.remove("loading");
@@ -239,7 +239,7 @@ function startMatrixAnimation() {
                 startSubtleWaves();
             }
         });
-    }, 10000);
+    }, 2800);
 }
 
 // ===== ENTRY POINT: play intro ONCE per TAB ============================

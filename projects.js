@@ -19,6 +19,45 @@
   // order = event#, date = label in the table
   const items = [
     {
+      id: "backline",
+      order: 10,
+      year: 2026,
+      month: 8,
+      date: "2026-08",
+      type: "Audio ML",
+      title: "Backline · AI Karaoke Studio",
+      stack: "MusicGen · PyTorch · CUDA · FastAPI · Next.js · Web Audio",
+      summary:
+        "Melody-conditioned music generation that rerenders any song into six genres, then follows the singer live: YIN pitch detection and WSOLA time-stretching run inside AudioWorklets, so a take never touches the network. Chroma correlation against the source measures +0.53 versus +0.29 for a time-reversed control. Two services share one 8 GB GPU behind a single-model registry.",
+      link: "https://github.com/BetterThanYou73/backline-ai-karaoke",
+    },
+    {
+      id: "kinetica",
+      order: 9,
+      year: 2026,
+      month: 7,
+      date: "2026-07",
+      type: "Vision",
+      title: "Kinetica · Pose-driven Form Coach",
+      stack: "Python · MediaPipe · OpenCV",
+      summary:
+        "Strength-training coach that classifies the exercise, counts reps, and checks form from pose estimation. Form rules live in a declarative JSON ruleset, so adding a new lift is a config entry rather than a code change.",
+      link: "https://github.com/BetterThanYou73/Kinetica",
+    },
+    {
+      id: "quantdash",
+      order: 8,
+      year: 2026,
+      month: 4,
+      date: "2026-04",
+      type: "Quant",
+      title: "Quant Dash · Equity Analytics",
+      stack: "Python · FastAPI · PostgreSQL · pandas · Fly.io",
+      summary:
+        "Multi-factor equity dashboard ranking the S&P 500 on momentum, value, quality, and low-volatility, with pair-trading hedge ratios, spread z-scores, and VaR/CVaR risk diagnostics. Cache-first data flow with a background worker keeping market data fresh through the trading day.",
+      link: "https://github.com/BetterThanYou73/quant-dash",
+    },
+    {
       id: "neuromotion",
       order: 7,
       year: 2025,
