@@ -254,3 +254,17 @@
     pointer-events: auto;
     z-index: 5;
 }
+
+/* inline links inside a timeline entry - match the green theme, not UA blue */
+.exp-item-body a {
+    color: #00ff9a;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 255, 154, 0.35);
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.exp-item-body a:hover,
+.exp-item-body a:focus-visible {
+    color: #b7ffe4;
+    border-bottom-color: #b7ffe4;
+}
