@@ -25,7 +25,9 @@ const Sfx=(()=>{
   const live=()=>enabled&&ac&&ac.state==='running';
   function unlocked(){const c=ctx();if(!c)return Promise.resolve(false);if(c.state==='running')return Promise.resolve(true);
     return Promise.race([c.resume().then(()=>c.state==='running').catch(()=>false),new Promise(r=>setTimeout(()=>r(false),250))]);}
-  function unlock(){const c=ctx();if(!c)return Promise.resolve();return c.state==='running'?Promise.resolve():c.resume().catch(()=>{});}
+  // iPhones mute web audio when the ring/silent switch is on silent unless the page asks to be treated as media
+  function media(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch(e){}}
+  function unlock(){media();const c=ctx();if(!c)return Promise.resolve();return c.state==='running'?Promise.resolve():c.resume().catch(()=>{});}
   function noise(d){const b=ac.createBuffer(1,Math.ceil(ac.sampleRate*d),ac.sampleRate),x=b.getChannelData(0);for(let i=0;i<x.length;i++)x[i]=Math.random()*2-1;const s=ac.createBufferSource();s.buffer=b;return s;}
   function tone(type,f,t,peak,a,dec,dest){const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(peak,t+a);g.gain.exponentialRampToValueAtTime(0.0001,t+a+dec);o.connect(g);g.connect(dest||out);o.start(t);o.stop(t+a+dec+.05);return o;}
   const mtof=m=>440*Math.pow(2,(m-69)/12);
@@ -66,7 +68,7 @@ const Sfx=(()=>{
   btn.addEventListener('click',toggle);paint();
   // phones only count a finished tap (touchend/click) as permission to play sound, not the first touch
   ['pointerdown','touchend','click','keydown'].forEach(ev=>addEventListener(ev,()=>{if(!ac||ac.state!=='running')unlock();},{capture:true,passive:true}));
-  return {logo,chime,ding,swoosh,flip,tag,clock,blip,beep,unlocked,unlock,toggle,get enabled(){return enabled;}};
+  return {logo,chime,ding,swoosh,flip,tag,clock,blip,beep,unlocked,unlock,toggle,context:ctx,get enabled(){return enabled;}};
 })();
 
 /* ================= spray-painted MJ tag for the intro ================= */
@@ -270,7 +272,8 @@ const Radio=(()=>{
   const bpm=104,s16=60/bpm/4,mtof=m=>440*Math.pow(2,(m-69)/12);
   const chords=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]],roots=[45,41,48,43];
   const btn=$('#radio-btn');
-  function init(){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return false;ac=new AC();
+  // share the site's one audio context: phones unlock it on a tap, and a second context often stays silent
+  function init(){ac=Sfx.context();if(!ac)return false;
     master=ac.createGain();master.gain.value=0;master.connect(ac.destination);
     delay=ac.createDelay();delay.delayTime.value=s16*3;const fb=ac.createGain();fb.gain.value=.32;const dl=ac.createGain();dl.gain.value=.5;
     delay.connect(fb);fb.connect(delay);delay.connect(dl);dl.connect(master);
@@ -286,9 +289,11 @@ const Radio=(()=>{
     if(s===0)pad(next,chords[bar]);if(s%8===0)kick(next);if(s%8===4)hit(next,'bandpass',1800,.45,.2);if(s%2===1)hit(next,'highpass',7000,.12,.04);
     if(s%2===0)bass(next,roots[bar]+(s%4===2?12:0));arp(next,chords[bar][[0,1,2,1][s%4]]+12+(s>=8?12:0));step++;next+=s16;}}
   function paint(){btn.setAttribute('aria-pressed',String(on));btn.title='Music: '+(on?'on':'off');}
-  function start(){if(!ac&&!init())return;ac.resume();master.gain.cancelScheduledValues(ac.currentTime);master.gain.setTargetAtTime(.2,ac.currentTime,.08);
-    next=ac.currentTime+.06;timer=setInterval(sched,25);on=true;paint();say('MJ FM 86.1','Synthwave, made live in your browser. '+(isDesk?'Click the radio again to turn it off.':'Tap MJ FM again to turn it off.'),4500);}
-  function stop(){if(!on)return;on=false;clearInterval(timer);master.gain.setTargetAtTime(0,ac.currentTime,.06);setTimeout(()=>{if(!on)ac.suspend();},400);paint();}
+  function start(){if(!ac&&!init())return;on=true;paint();
+    const go=()=>{if(!on)return;clearInterval(timer);master.gain.cancelScheduledValues(ac.currentTime);master.gain.setTargetAtTime(.2,ac.currentTime,.08);
+      step=0;next=ac.currentTime+.06;timer=setInterval(sched,25);};
+    Sfx.unlock().then(go);say('MJ FM 86.1','Synthwave, made live in your browser. '+(isDesk?'Click the radio again to turn it off.':'Tap MJ FM again to turn it off.'),4500);}
+  function stop(){if(!on)return;on=false;clearInterval(timer);master.gain.setTargetAtTime(0,ac.currentTime,.06);paint();}
   btn.addEventListener('click',()=>on?stop():start());
   return {toggle(){on?stop():start();},stop,get on(){return on;}};
 })();
@@ -433,7 +438,7 @@ const KIT={Languages:['Python','C','C++','JavaScript','TypeScript','SQL','Bash']
 const mlist=$('#mlist'),mdetail=$('#mdetail');let msel=0;
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 MISSIONS.forEach((m,i)=>{const b=document.createElement('button');b.className='mrow';b.dataset.aim='';b.setAttribute('role','option');b.id='m-'+i;
-  b.innerHTML='<i class="medal '+m.medal+'"></i>'+esc(m.title);b.addEventListener('click',()=>{pickMission(i);if(!isDesk)mdetail.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});});mlist.appendChild(b);});
+  b.innerHTML='<i class="medal '+m.medal+'"></i>'+esc(m.title);b.addEventListener('click',()=>pickMission(i));mlist.appendChild(b);});
 const STAMP={gold:['Mission passed','respect +'],silver:['Mission passed',''],bronze:['Side mission','']};
 function pickMission(i,focusIt,quiet){const changed=i!==msel;msel=i;const m=MISSIONS[i],s=STAMP[m.medal];
   $$('.mrow').forEach((r,j)=>{r.setAttribute('aria-selected',String(j===i));r.tabIndex=j===i?0:-1;});
@@ -443,7 +448,9 @@ function pickMission(i,focusIt,quiet){const changed=i!==msel;msel=i;const m=MISS
     '<div class="mlinks">'+m.links.map(l=>'<a class="vbtn" href="'+esc(l[1])+'" target="_blank" rel="noopener">'+esc(l[0])+'</a>').join('')+'</div></div>';
   mdetail.classList.remove('swap');void mdetail.offsetWidth;mdetail.classList.add('swap');
   if(changed&&!quiet)Sfx.blip();
-  if(focusIt)$('#m-'+i).focus({preventScroll:true});}
+  if(focusIt)$('#m-'+i).focus({preventScroll:true});
+  // phones: the mission strip scrolls sideways; keep the picked one centred in it
+  if(!isDesk){const r=$('#m-'+i);if(r&&mlist.scrollWidth>mlist.clientWidth)mlist.scrollTo({left:r.offsetLeft-(mlist.clientWidth-r.offsetWidth)/2,behavior:reduce?'auto':'smooth'});}}
 pickMission(0,false,true);
 // ↑ ↓ switch missions anywhere on the Missions page, not only when the list has focus
 addEventListener('keydown',e=>{
