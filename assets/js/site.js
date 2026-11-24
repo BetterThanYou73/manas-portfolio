@@ -64,7 +64,8 @@ const Sfx=(()=>{
   function paint(){btn.setAttribute('aria-pressed',String(enabled));btn.title='Sounds: '+(enabled?'on':'off');}
   function toggle(){enabled=!enabled;store.set('mj-sfx',enabled?'1':'0');paint();if(enabled)unlock().then(()=>ding());}
   btn.addEventListener('click',toggle);paint();
-  addEventListener('pointerdown',()=>unlock(),{once:true,capture:true});addEventListener('keydown',()=>unlock(),{once:true,capture:true});
+  // phones only count a finished tap (touchend/click) as permission to play sound, not the first touch
+  ['pointerdown','touchend','click','keydown'].forEach(ev=>addEventListener(ev,()=>{if(!ac||ac.state!=='running')unlock();},{capture:true,passive:true}));
   return {logo,chime,ding,swoosh,flip,tag,clock,blip,beep,unlocked,unlock,toggle,get enabled(){return enabled;}};
 })();
 
@@ -101,7 +102,7 @@ const Spray=(()=>{
 const Intro=(()=>{
   const el=$('#intro'),press=el.querySelector('.press');let res=()=>{},skipOn=false,tm,running=false;
   const gated=()=>{try{return sessionStorage.getItem('mj-intro')==='1';}catch(e){return false;}};
-  function unhook(){removeEventListener('keydown',skip,true);el.removeEventListener('pointerdown',skip);removeEventListener('keydown',start,true);el.removeEventListener('pointerdown',start);}
+  function unhook(){removeEventListener('keydown',skip,true);el.removeEventListener('pointerdown',skip);removeEventListener('keydown',start,true);el.removeEventListener('click',start);}
   function finish(){if(!running)return;running=false;clearTimeout(tm);try{sessionStorage.setItem('mj-intro','1');}catch(e){}unhook();
     el.classList.add('out');setTimeout(()=>{el.hidden=true;el.classList.remove('out','play');mount(false);res();},reduce?0:350);}
   function skip(e){if(!skipOn)return;e.preventDefault();e.stopPropagation();finish();}
@@ -110,7 +111,10 @@ const Intro=(()=>{
     Sfx.clock().then(c=>{if(!running)return;if(c)Sfx.tag(Spray.sched,Spray.END,c.t);
       setTimeout(()=>{if(!running)return;el.classList.remove('play');void el.offsetWidth;el.classList.add('play');Spray.draw($('#spray'));
         tm=setTimeout(finish,reduce?1200:Math.round((Spray.END+1.05)*1000));setTimeout(()=>{skipOn=true;},400);},c?c.ms:0);});}
-  function start(e){if(e){e.preventDefault();e.stopPropagation();}removeEventListener('keydown',start,true);el.removeEventListener('pointerdown',start);Sfx.unlock().then(play);}
+  // started by a key or a full tap; the paint never waits more than a moment for the sound to unlock
+  let started=false;
+  function start(e){if(started)return;started=true;if(e){e.preventDefault();e.stopPropagation();}removeEventListener('keydown',start,true);el.removeEventListener('click',start);
+    Promise.race([Sfx.unlock(),new Promise(r=>setTimeout(r,350))]).then(play);}
   // full screen when the site first opens; inside the browser window's page area when the portfolio is reopened
   function mount(inWin){const page=$('#page'),win=$('#w-browser');
     if(inWin&&page&&win){win.appendChild(el);el.classList.add('in-win');
@@ -121,7 +125,7 @@ const Intro=(()=>{
     mount(!!(opts&&opts.inWindow));el.hidden=false;
     addEventListener('keydown',skip,true);el.addEventListener('pointerdown',skip);
     // browsers only allow sound after a click or key press: when it's blocked, show a game-style start screen
-    Sfx.unlocked().then(ok=>{if(ok)play();else{press.textContent=isDesk?'Press any key':'Tap to start';press.hidden=false;addEventListener('keydown',start,true);el.addEventListener('pointerdown',start);}});});}
+    Sfx.unlocked().then(ok=>{if(ok)play();else{press.textContent=isDesk?'Press any key':'Tap to start';press.hidden=false;started=false;addEventListener('keydown',start,true);el.addEventListener('click',start);}});});}
   return {run,get on(){return !el.hidden;}};
 })();
 
