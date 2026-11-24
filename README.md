@@ -49,5 +49,3 @@ To swap the wallpaper, replace `assets/photos/wall.jpg` with a landscape photo (
 ## Domain
 
 `CNAME` points GitHub Pages at `manasjoshi.site`. At the domain registrar, add four `A` records for the apex (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`) and a `CNAME` for `www` pointing to `betterthanyou73.github.io`. Then turn on **Enforce HTTPS** in the repo's Pages settings.
-
-To keep old links alive, forward `manasjoshi.space` to `https://manasjoshi.site` with a 301 at its registrar or in Cloudflare. GitHub Pages can only serve one custom domain per repository, so it can't do that redirect itself.
