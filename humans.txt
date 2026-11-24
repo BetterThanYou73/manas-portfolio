@@ -1,11 +1,13 @@
 /* TEAM */
 Developer: Manas Joshi
-Website: https://manasjoshi.space
+Website: https://manasjoshi.site
 GitHub: https://github.com/BetterThanYou73
+LinkedIn: https://www.linkedin.com/in/manas-joshi-dev/
 
-/* TECHNOLOGY */
-Built with: HTML, CSS, JS, GSAP, CRT effects, custom animations
-ML/Systems Experience: OpenBCI EEG Motion Imagery Classifier, TinyML MLP, RISC-V, FPGA, RL, TensorFlow, PyTorch
+/* SITE */
+Built with: plain HTML, CSS and JavaScript. No framework, no build step.
+Sound: every sound is synthesized live with the Web Audio API.
+Easter eggs: yes.
 
 /* LAST UPDATED */
-2025
+2026/11

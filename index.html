@@ -1,294 +1,413 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manas Joshi | Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="https://manasjoshi.space/assets/logo.png">
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Essential Meta -->
-    <meta name="description" content="Manas Joshi — Developer specializing in ML, Reinforcement Learning, Embedded Systems, and creative front-end experiences.">
-    <meta name="author" content="Manas Joshi">
-    <meta name="keywords" content="Manas Joshi, Machine Learning, Embedded Systems, Reinforcement Learning, Portfolio, Developer, RISC-V, OpenBCI, FPGA">
-
-    <!-- Open Graph (Social Preview) -->
-    <meta property="og:title" content="Manas Joshi | Developer Portfolio">
-    <meta property="og:description" content="ML • RL • Embedded • EEG • Systems • Web — what I build & break.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://manasjoshi.space">
-    <meta property="og:image" content="https://manasjoshi.space/assets/preview.png">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Manas Joshi | Developer Portfolio">
-    <meta name="twitter:description" content="ML • RL • Embedded • EEG • Systems • Web — what I build & break.">
-    <meta name="twitter:image" content="https://manasjoshi.space/assets/preview.png">
-
-
-
-
-    <!-- GSAP CDN (for matrix + other animations you already use) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manas Joshi · ML, security &amp; full-stack</title>
+<meta name="description" content="Manas Joshi: Computing Science at the University of Alberta. Machine learning, security and full-stack software, presented as a 1986 desktop with a few secrets.">
+<link rel="canonical" href="https://manasjoshi.site/">
+<meta name="theme-color" content="#1b1036">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://manasjoshi.site/">
+<meta property="og:title" content="Manas Joshi">
+<meta property="og:description" content="Manas Joshi: Computing Science at the University of Alberta. Machine learning, security and full-stack software, presented as a 1986 desktop with a few secrets.">
+<meta property="og:image" content="https://manasjoshi.site/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Big+Shoulders+Display:wght@800;900&family=Cinzel:wght@500;600&family=Cormorant+SC:wght@500;600&family=JetBrains+Mono:wght@400;600&family=Lilita+One&family=Mr+Dafoe&family=Permanent+Marker&family=Rubik+Dirt&family=Tilt+Neon&family=VT323&display=swap">
+<link rel="stylesheet" href="/assets/css/site.css">
+<script src="/assets/js/site.js" defer></script>
 </head>
+<body>
+<noscript><p style="padding:24px;color:#fff;font:16px system-ui">This portfolio needs JavaScript. Reach me at manas2005mj@gmail.com or github.com/BetterThanYou73.</p></noscript>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-web" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="#2fb6c8" stroke="#1b1420" stroke-width="1.6"/><path d="M4 16h24M16 4c-5 4-5 20 0 24M16 4c5 4 5 20 0 24M6.5 9.5h19M6.5 22.5h19" fill="none" stroke="#1b1420" stroke-width="1.3"/><path d="M3 21c8-9 18-12 27-11" fill="none" stroke="#ff5fa2" stroke-width="2.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-bug" viewBox="0 0 32 32"><rect x="3" y="3" width="26" height="26" fill="#cbc3cf" stroke="#1b1420" stroke-width="1.6"/><path d="M4 28V4h24" fill="none" stroke="#fff" stroke-width="1.6"/><ellipse cx="16" cy="18" rx="6" ry="7.5" fill="#1b1420"/><circle cx="16" cy="9.5" r="3.4" fill="#1b1420"/><path d="M10 14l-4-3M10 18H5M10 22l-4 3M22 14l4-3M22 18h5M22 22l4 3" stroke="#1b1420" stroke-width="1.8" stroke-linecap="round"/><path d="M16 12v13" stroke="#ff5fa2" stroke-width="1.4"/></symbol>
+    <symbol id="i-radio" viewBox="0 0 32 32"><rect x="3" y="11" width="26" height="17" rx="2" fill="#ffb347" stroke="#1b1420" stroke-width="1.6"/><circle cx="10" cy="20" r="4.5" fill="#1b1420"/><circle cx="10" cy="20" r="1.6" fill="#ffb347"/><rect x="17" y="15" width="9" height="3" fill="#1b1420"/><path d="M17 22h9M17 25h9" stroke="#1b1420" stroke-width="1.6"/><path d="M8 11L24 4" stroke="#1b1420" stroke-width="1.6"/></symbol>
+    <symbol id="i-note" viewBox="0 0 32 32"><path d="M7 3h13l6 6v20H7z" fill="#fff" stroke="#1b1420" stroke-width="1.6"/><path d="M20 3v6h6" fill="#cbc3cf" stroke="#1b1420" stroke-width="1.6"/><path d="M10 14h12M10 18h12M10 22h9" stroke="#2fb6c8" stroke-width="1.6"/></symbol>
+    <symbol id="i-bin" viewBox="0 0 32 32"><path d="M7 9h18l-2 20H9z" fill="#cbc3cf" stroke="#1b1420" stroke-width="1.6"/><rect x="5" y="6" width="22" height="3" fill="#ece7ee" stroke="#1b1420" stroke-width="1.6"/><path d="M12 13l1 12M16 13v12M20 13l-1 12" stroke="#7c7186" stroke-width="1.4"/><path d="M13 6V4h6v2" fill="none" stroke="#1b1420" stroke-width="1.6"/></symbol>
+    <symbol id="i-power" viewBox="0 0 32 32"><circle cx="16" cy="17" r="10" fill="#ff5fa2" stroke="#1b1420" stroke-width="1.6"/><path d="M16 9v8" stroke="#1b1420" stroke-width="2.6" stroke-linecap="round"/><path d="M11 13a6 6 0 1 0 10 0" fill="none" stroke="#1b1420" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-commit" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M2 12h6M16 12h6"/></symbol>
+  </defs>
+</svg>
 
-<body class="loading">
+<div id="desk">
+  <canvas id="wall" aria-hidden="true"></canvas>
+  <img id="wall-photo" src="/assets/photos/wall.jpg" alt="" hidden>
 
-    <!-- MATRIX ANIMATION CANVAS -->
-    <canvas id="matrixCanvas"></canvas>
+  <nav id="icons" aria-label="Desktop">
+    <button class="icon" data-open="w-browser"><svg><use href="#i-web"/></svg><span>My Portfolio</span></button>
+    <button class="icon" data-open="w-game"><svg><use href="#i-bug"/></svg><span>Bugsweeper</span></button>
+    <button class="icon" data-act="radio"><svg><use href="#i-radio"/></svg><span>MJ FM</span></button>
+    <button class="icon" data-open="w-notes"><svg><use href="#i-note"/></svg><span>readme.txt</span></button>
+    <button class="icon" data-open="w-bin"><svg><use href="#i-bin"/></svg><span>Recycle Bin</span></button>
+  </nav>
 
-    <!-- MAIN CONTENT WRAPPER (initially hidden) -->
-    <div id="mainContent">
-        <!-- TOP NAVBAR -->
-        <header class="top-nav">
-            <div class="nav-logo">MJ</div>
-            <nav class="nav-links">
-                <!-- later you can point these to separate pages: education.html, etc. -->
-                <a href="index">Home</a>
-                <a href="education">Education</a>
-                <a href="experience">Experience</a>
-                <a href="projects">Projects</a>
-                <a href="contact">Contact</a>
-            </nav>
-        </header>
+  <!-- ============ BROWSER ============ -->
+  <section class="win out" id="w-browser" data-title="Home · Manas Joshi" data-icon="i-web" hidden>
+    <header class="tb"><svg class="ico"><use href="#i-web"/></svg><span class="tt"></span>
+      <span class="btns"><button class="m" aria-label="Minimize"><svg width="8" height="7"><rect y="5" width="6" height="2"/></svg></button><button class="mx" aria-label="Maximize"></button><button class="x" aria-label="Close"><svg width="8" height="7" viewBox="0 0 8 7"><path d="M0 0h2l2 2 2-2h2L5 3.5 8 7H6L4 5 2 7H0l3-3.5z"/></svg></button></span>
+    </header>
+    <div class="wbody">
+      <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Bookmarks</span><span>Help</span></div>
+      <div class="toolbar">
+        <button class="tbtn" id="b-back" disabled><svg viewBox="0 0 20 20"><path d="M12 4L6 10l6 6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg><span>Back</span></button>
+        <button class="tbtn" id="b-fwd" disabled><svg viewBox="0 0 20 20"><path d="M8 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg><span>Forward</span></button>
+        <button class="tbtn" id="b-reload"><svg viewBox="0 0 20 20"><path d="M15 7a6 6 0 1 0 1 5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 3v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Reload</span></button>
+        <button class="tbtn" data-go="home"><svg viewBox="0 0 20 20"><path d="M3 10l7-6 7 6M5 9v8h4v-5h2v5h4V9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Home</span></button>
+        <a class="tbtn" href="/assets/Manas_Joshi_Resume.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 20 20"><path d="M12 2H5v16h11V6z M12 2v4h4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10h5M8 13h5" stroke="currentColor" stroke-width="1.6"/></svg><span>Résumé</span></a>
+        <div class="throbber in"><i></i></div>
+      </div>
+      <div class="addr"><span>Address</span><div class="addr-field in"><i></i><b id="url">https://manasjoshi.site/</b></div></div>
+      <div class="page in" id="page">
+        <nav class="site-nav" aria-label="Site">
+          <button class="mark" id="mj-mark" data-go="home" title="Home">MJ</button>
+          <button class="lnk" data-go="missions">Missions<small>projects</small></button>
+          <button class="lnk" data-go="career">Career<small>experience</small></button>
+          <button class="lnk" data-go="stats">Stats<small>skills</small></button>
+          <button class="lnk" data-go="brief">Brief<small>education</small></button>
+          <button class="lnk" data-go="contact">Phone<small>contact</small></button>
+          <div class="hud">
+            <a class="commits" href="https://github.com/BetterThanYou73" target="_blank" rel="noopener" title="Total commits on GitHub" style="text-decoration:none"><svg><use href="#i-commit"/></svg><span id="commit-n">0</span><small>commits</small></a>
+            <div class="stars" id="stars" role="img"></div>
+          </div>
+        </nav>
 
-        <main>
-            <!-- HERO / GLASS CARD -->
-            <section id="home" class="hero-section">
-                <div class="hero-card">
-                    <p class="hero-eyebrow">ACCESS: APPROVED</p>
-
-                    <h1 id="nameTitle" class="hero-name">MANAS JOSHI</h1>
-
-                    <p id="introText" class="hero-subtitle">
-                        I work with machine learning, reinforcement learning, LLMs, and computer vision, and I enjoy building software that actually feels good to use. I like working on new technologies and trying cool things on front end for fun.
-                    </p>
-
-                    <!-- socials row -->
-                    <div class="hero-socials">
-                        <a href="https://github.com/BetterThanYou73" target="_blank" rel="noopener noreferrer">
-                            GitHub
-                        </a>
-                        <a href="https://www.linkedin.com/in/manas-joshi-employee-of-the-year/" target="_blank" rel="noopener noreferrer">
-                            LinkedIn
-                        </a>
-                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-                            Instagram
-                        </a>
-                    </div>
-
-                    <!-- main CTAs -->
-                    <div class="hero-ctas">
-                        <a href="#skills" class="btn-primary">View Skills</a>
-                        <a href="#contact" class="btn-ghost">Contact</a>
-                        <!-- NEW: résumé download button -->
-                        <!-- change href to the actual path to your PDF -->
-                        <a href="assets/Manas_Joshi_Resume.pdf" class="btn-ghost" download>
-                            Download CV
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-        <!-- SKILLS SECTION -->
-        <section id="skills" class="skills-section">
-            <h2 class="section-title skills-main-title">Skill Stack</h2>
-            <p class="section-subtitle skills-main-subtitle">
-                What I actually like building & breaking.
-            </p>
-            <!-- LEFT: TEXT CATEGORIES ----------------------------------->
-            <div class="skills-layout">
-            <div class="skills-list">
-
-            <!-- DATA SCIENCE & AI -->
-            <div class="skill-category" data-monitor="ai">
-            <h2 class="skills-heading">Data Science &amp; AI</h2>
-            <ul class="skills-lines">
-                <li>Machine Learning &amp; Deep Learning</li>
-                <li>TensorFlow &amp; PyTorch</li>
-                <li>Reinforcement Learning (RL-Glue)</li>
-                <li>Scikit-learn</li>
-                <li>EEG / BCI (OpenBCI, MOABB)</li>
-                <li>NLP (NLTK, basic LMs)</li>
-            </ul>
+        <!-- HOME -->
+        <div class="pg" data-page="home">
+          <header class="hero">
+            <div>
+              <div class="who">Computing Science · University of Alberta · Class of 2027</div>
+              <h1 data-drop="letters">Manas Joshi</h1>
+              <p>Machine learning, security and full-stack software. I build things that run in production and feel good to use.</p>
+              <div class="cta"><button class="btn primary" data-go="missions">See missions</button><button class="btn" data-go="contact">Get my card</button></div>
             </div>
-
-            <!-- SYSTEMS & LOW-LEVEL -->
-            <div class="skill-category" data-monitor="systems">
-            <h2 class="skills-heading">Systems &amp; Low-Level</h2>
-            <ul class="skills-lines">
-                <li>C / C++</li>
-                <li>RISC-V &amp; Embedded Assembly</li>
-                <li>Git &amp; Linux</li>
-            </ul>
+            <div class="objective">Go to <button data-go="missions">Missions</button> to see QuantDash, live at quantdash.tech.</div>
+          </header>
+          <section class="wrap-p" style="padding-top:28px">
+            <div class="chap" data-reveal>right now</div>
+            <div class="now">
+              <div data-reveal><span class="st active">Active · Aug 2026</span><b>ECG signal-analysis research</b><span>Dr. Dongsheng Xiao's group, NeuroPrior AI</span></div>
+              <div data-reveal style="--rd:90ms"><span class="st active">Live · since Apr 2026</span><b>QuantDash</b><span>Running in production at quantdash.tech</span></div>
+              <div data-reveal style="--rd:180ms"><span class="st incoming">May 2027</span><b>Graduating, BSc CS</b><span>Open to relocating · Edmonton, AB</span></div>
             </div>
-
-            <!-- WEB & TOOLS -->
-            <div class="skill-category" data-monitor="web">
-            <h2 class="skills-heading">Web &amp; Tools</h2>
-            <ul class="skills-lines">
-                <li>HTML / CSS / JavaScript</li>
-                <li>Django &amp; Flask</li>
-                <li>REST APIs (LeafletJS, OpenWeather)</li>
-                <li>MySQL &amp; basic SQL</li>
-                <li>GSAP &amp; front-end motion</li>
-                <li>VS Code / GitHub</li>
-            </ul>
-            </div>
-
-            <!-- TEMPLATE: add more blocks like this
-            <div class="skill-category" data-monitor="something">
-                <h2 class="skills-heading">New Area</h2>
-                <ul class="skills-lines">
-                <li>Skill 1</li>
-                <li>Skill 2</li>
-                </ul>
-            </div>
-            -->
-            </div>
-
-            <!-- RIGHT: BIG CRT MONITOR ----------------------------------->
-            <aside class="skills-monitor">
-            <div class="monitor-inner">
-                <div class="monitor-header">/dev/skills</div>
-                <pre id="monitorText">&gt; ai_stack.sh</pre>
-            </div>
-            <div class="monitor-stand"></div>
-            </aside>
+          </section>
+          <section class="wrap-p" style="padding-bottom:56px">
+            <div class="chap" data-reveal>chapter 01</div>
+            <h2 class="vc-h" data-drop>the story so far</h2>
+            <ol class="beats">
+              <li data-reveal><span class="yr">2021</span><p>Writes a Python assistant and names it Ultron 2.0. It mostly automates boring stuff. He's hooked.</p><span class="tag">where it started</span></li>
+              <li data-reveal><span class="yr">2022</span><p>Finishes two MITx courses on Python and data science, for fun, before university even starts.</p></li>
+              <li data-reveal><span class="yr">2023</span><p>Starts Computing Science at the University of Alberta. Builds a horror game that reads your muscles and scares you harder when you tense up.</p><span class="tag">Nightmares</span></li>
+              <li data-reveal><span class="yr">2024</span><p>Picks up TensorFlow Developer and two Amii reinforcement-learning certificates. Starts teaching computers to read handwritten math.</p></li>
+              <li data-reveal><span class="yr">2025</span><p>Joins Bionix to build RL control for prosthetic legs. Takes 2nd place at NatHacks decoding brain signals live.</p><span class="tag">2nd place!</span></li>
+              <li data-reveal><span class="yr">2026</span><p>Ships QuantDash solo, interns at Orbitra Cybersecurity, leads AI at Take THE Cake, and starts ECG research that beats NeuroKit2.</p><span class="tag">big year</span></li>
+              <li data-reveal><span class="yr">2027</span><p>Graduates in May. The next mission hasn't been written yet. Maybe it's yours.</p><span class="tag">to be continued…</span></li>
+            </ol>
+          </section>
         </div>
-        </section>
 
+        <!-- MISSIONS -->
+        <div class="pg vc-page" data-page="missions" hidden>
+          <section class="wrap-p" style="padding-bottom:56px">
+            <div class="chap" data-reveal>chapter 02 · the jobs that paid in respect</div>
+            <h2 class="vc-h" data-drop>mission select</h2>
+            <div class="pm">
+              <div class="slab" data-reveal><canvas class="camo" aria-hidden="true"></canvas><div class="mlist" id="mlist" role="listbox" aria-label="Missions"></div></div>
+              <div data-reveal style="--rd:120ms;min-width:0"><article class="brief" id="mdetail" aria-live="polite"></article></div>
+            </div>
+          </section>
+        </div>
 
-            <!-- CONTACT “ANCHOR” ONLY (so #contact exists for buttons) -->
-            <section id="contact" class="contact-anchor"></section>
-        </main>
+        <!-- CAREER -->
+        <div class="pg career-wall" data-page="career" hidden>
+          <section class="wrap-p" style="padding-bottom:56px">
+            <div class="chap" data-reveal>chapter 03 · who's been paying me</div>
+            <h2 class="vc-h" data-drop>career log</h2>
+            <div class="signs" id="log"></div>
+          </section>
+        </div>
 
-        <!-- FOOTER / EASTER EGG -->
-        <footer class="site-footer">
-            <p class="footer-text">
-                MADE BY MANAS J<span id="footer-disc">O</span>SHI
-            </p>
+        <!-- STATS -->
+        <div class="pg vc-page" data-page="stats" hidden>
+          <section class="wrap-p" style="padding-bottom:56px">
+            <div class="chap" data-reveal>chapter 04 · how i level up</div>
+            <h2 class="vc-h" data-drop>player stats</h2>
+            <div class="statgrid">
+              <div class="stat-col" data-reveal><h3 class="sub-h">skills</h3><div class="slab stats-slab"><canvas class="camo" aria-hidden="true"></canvas><div class="srows" id="bars"></div></div></div>
+              <div class="loadout" id="kit" data-reveal style="--rd:140ms"></div>
+            </div>
+          </section>
+        </div>
 
-            <!-- Only ONE audio tag -->
-            <audio id="footer-audio" src="assets/bgm.mp3" preload="auto"></audio>
-        </footer>
+        <!-- BRIEF -->
+        <div class="pg vc-page" data-page="brief" hidden>
+          <section class="wrap-p" style="padding-bottom:56px">
+            <div class="chap" data-reveal>chapter 05 · school &amp; side quests</div>
+            <h2 class="vc-h" data-drop>mission brief</h2>
+            <div class="briefgrid">
+            <div data-reveal style="min-width:0"><article class="brief school">
+              <span class="stamp">in progress<small>class of 2027</small></span>
+              <div class="brief-in">
+              <span class="tag kind">University of Alberta · Edmonton</span>
+              <h3>bsc computing science<small>4th year · graduating May 2027 · open to relocating</small></h3>
+              <span class="tag" style="color:#fff">courses cleared</span>
+              <div class="chips"><i>Algorithms</i><i>Machine Learning</i><i>Reinforcement Learning</i><i>Computer Architecture</i><i>Operating Systems</i><i>Databases</i><i>Software Engineering</i><i>Statistics &amp; Probability</i></div>
+              </div>
+            </article></div>
+            <div class="achv" data-reveal style="--rd:140ms">
+            <h3 class="sub-h">achievements</h3>
+            <div class="certs">
+              <div class="cert"><b>Fundamentals of Reinforcement Learning</b><span>Amii · Oct 2024</span></div>
+              <div class="cert"><b>Sample-based Learning Methods</b><span>Amii · Oct 2024</span></div>
+              <div class="cert"><b>DeepLearning.AI TensorFlow Developer</b><span>DeepLearning.AI · Jul 2024</span></div>
+            </div>
+            <details class="more"><summary>show all 9 achievements</summary>
+              <div class="certs">
+                <div class="cert"><b>Natural Language Processing in TensorFlow</b><span>DeepLearning.AI · Jul 2024</span></div>
+                <div class="cert"><b>Sequences, Time Series and Prediction</b><span>DeepLearning.AI · Jul 2024</span></div>
+                <div class="cert"><b>Convolutional Neural Networks in TensorFlow</b><span>DeepLearning.AI · Jun 2024</span></div>
+                <div class="cert"><b>Intro to TensorFlow for AI, ML and Deep Learning</b><span>DeepLearning.AI · Jun 2024</span></div>
+                <div class="cert"><b>MITx 6.00.2x · Computational Thinking and Data Science</b><span>edX · May 2022</span></div>
+                <div class="cert"><b>MITx 6.00.1x · Intro to CS and Programming in Python</b><span>edX · Feb 2022</span></div>
+              </div>
+            </details>
+            </div>
+            </div>
+          </section>
+        </div>
 
-        
-    <!-- PAGE-SPECIFIC JS (skills + easter egg) -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-        /* ---------- SKILL CATEGORIES + MONITOR TYPEWRITER ---------- */
+        <!-- CONTACT -->
+        <div class="pg" data-page="contact" hidden>
+          <section class="contact">
+            <div class="contact-in">
+              <div class="chap" data-reveal>chapter 06 · the card</div>
+              <h2 class="vc-h" data-drop>let's see the card</h2>
+              <div class="stage" data-reveal>
+                <div class="card3d" id="card" tabindex="0" role="group" aria-label="Business card for Manas Joshi. Press Enter to flip.">
+                  <div class="face front">
+                    <div class="wm">MJ</div>
+                    <div class="c-row ink"><span>Edmonton · Canada</span><span>manasjoshi.site</span></div>
+                    <div class="c-mid ink">
+                      <div class="c-name">Manas Joshi</div>
+                      <div class="c-role">Machine learning · Security · Systems</div>
+                      <div class="c-tag">Better than Paul Allen's card</div>
+                    </div>
+                    <div class="c-row ink"><span>github · linkedin</span><span class="mail">manas2005mj@gmail.com</span></div>
+                    <div class="sheen"></div>
+                  </div>
+                  <div class="face back">
+                    <div class="vb-logo">Manas Joshi</div>
+                    <div class="vb-links">
+                      <a class="vbtn" href="https://github.com/BetterThanYou73" target="_blank" rel="noopener">github</a>
+                      <a class="vbtn" href="https://www.linkedin.com/in/manas-joshi-dev/" target="_blank" rel="noopener">linkedin</a>
+                      <button class="vbtn" type="button" data-copy="manas2005mj@gmail.com">copy email</button>
+                      <a class="vbtn" href="/assets/Manas_Joshi_Resume.pdf" target="_blank" rel="noopener">résumé</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="plain-links">
+                <button type="button" data-copy="manas2005mj@gmail.com">manas2005mj@gmail.com (copy)</button>
+                <a href="https://www.linkedin.com/in/manas-joshi-dev/" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/BetterThanYou73" target="_blank" rel="noopener">GitHub</a>
+                <a href="/assets/Manas_Joshi_Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="statusbar"><span class="in" id="status">Document: Done</span><span class="in">Internet zone</span></div>
+    </div>
+  </section>
 
-        const monitorText = document.getElementById("monitorText");
-        const categories  = document.querySelectorAll(".skill-category");
+  <!-- ============ BUGSWEEPER ============ -->
+  <section class="win out" id="w-game" data-title="Bugsweeper" data-icon="i-bug" hidden>
+    <header class="tb"><svg class="ico"><use href="#i-bug"/></svg><span class="tt"></span>
+      <span class="btns"><button class="m" aria-label="Minimize"><svg width="8" height="7"><rect y="5" width="6" height="2"/></svg></button><button class="mx" aria-label="Maximize"></button><button class="x" aria-label="Close"><svg width="8" height="7" viewBox="0 0 8 7"><path d="M0 0h2l2 2 2-2h2L5 3.5 8 7H6L4 5 2 7H0l3-3.5z"/></svg></button></span>
+    </header>
+    <div class="wbody">
+      <div class="menubar"><button data-bs="new">New game</button><button data-bs="9">Beginner</button><button data-bs="16">Intermediate</button></div>
+      <div class="bs">
+        <div class="bs-top in"><span class="lcd" id="bs-count">010</span><button class="bs-face out" id="bs-face" aria-label="New game"></button><span class="lcd" id="bs-time">000</span></div>
+        <div class="bs-grid in" id="bs-grid" aria-label="Bugsweeper board"></div>
+        <div class="bs-msg" id="bs-msg" hidden></div>
+      </div>
+      <div class="statusbar"><span class="in" id="bs-status">Ready</span><span class="in" id="bs-best">Best: –</span></div>
+    </div>
+  </section>
 
-        // scripts for each category
-        const monitorScripts = {
-            ai: `> ai_stack.sh\n  loading: ML, DL, RL, EEG/BCI, NLP ...`,
-            systems: `> bare_metal.sh\n  loading: C, C++, RISC-V, Embedded, Linux ...`,
-            web: `> frontend.sh\n  loading: HTML, CSS, JS, GSAP, tooling ...`
-        };
+  <!-- ============ NOTEPAD ============ -->
+  <section class="win out" id="w-notes" data-title="readme.txt - Notepad" data-icon="i-note" hidden>
+    <header class="tb"><svg class="ico"><use href="#i-note"/></svg><span class="tt"></span>
+      <span class="btns"><button class="m" aria-label="Minimize"><svg width="8" height="7"><rect y="5" width="6" height="2"/></svg></button><button class="mx" aria-label="Maximize"></button><button class="x" aria-label="Close"><svg width="8" height="7" viewBox="0 0 8 7"><path d="M0 0h2l2 2 2-2h2L5 3.5 8 7H6L4 5 2 7H0l3-3.5z"/></svg></button></span>
+    </header>
+    <div class="wbody">
+      <div class="menubar"><span>File</span><span>Edit</span><span>Search</span><span>Help</span></div>
+<pre class="notepad in">VICE OS 86 · readme.txt
+=======================
 
-        let typingTimer = null;
-        const monitorOrder = [];     // keys in the order they were revealed
+Welcome to Manas Joshi's desktop.
 
-        function typeMonitorCombined() {
-            if (!monitorText || !monitorOrder.length) return;
+* Minimize the portfolio window and a game of
+  Bugsweeper opens. Find the bugs before they
+  find production.
+* Close the portfolio to come back here.
+  Double-click "My Portfolio" to reopen it.
+* The green number up top is real: total
+  commits on GitHub.
+* The stars are your wanted level. Every time
+  you come back, it goes up.
+* Press Esc for the classic main menu.
+  On a phone, tap the MJ logo three times.
+* MJ FM, bottom-right, plays music made live
+  in your browser.
+* Old cheat codes still work. It starts with H.
 
-            // full log = all triggered blocks stacked with a blank line in between
-            const fullText = monitorOrder
-            .map(key => monitorScripts[key])
-            .filter(Boolean)
-            .join("\n\n");
+Best viewed at 1024x768 in 16-bit colour.
+</pre>
+    </div>
+  </section>
 
-            if (typingTimer) clearTimeout(typingTimer);
+  <!-- ============ RECYCLE BIN ============ -->
+  <section class="win out" id="w-bin" data-title="Recycle Bin" data-icon="i-bin" hidden>
+    <header class="tb"><svg class="ico"><use href="#i-bin"/></svg><span class="tt"></span>
+      <span class="btns"><button class="m" aria-label="Minimize"><svg width="8" height="7"><rect y="5" width="6" height="2"/></svg></button><button class="mx" aria-label="Maximize"></button><button class="x" aria-label="Close"><svg width="8" height="7" viewBox="0 0 8 7"><path d="M0 0h2l2 2 2-2h2L5 3.5 8 7H6L4 5 2 7H0l3-3.5z"/></svg></button></span>
+    </header>
+    <div class="wbody">
+      <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Help</span></div>
+      <div class="bin-list in">
+        <table>
+          <thead><tr><th>Name</th><th>Original location</th></tr></thead>
+          <tbody id="bin-body">
+            <tr><td>node_modules<small>2.3 GB of other people's code</small></td><td>C:\Projects</td></tr>
+            <tr><td>final_FINAL_v3_actually_final.py<small>We've all been there</small></td><td>Desktop</td></tr>
+            <tr><td>ocean_drive_86.exe<small>Too many cops</small></td><td>Desktop</td></tr>
+            <tr><td>tabs_vs_spaces.txt<small>Argument lost</small></td><td>My Documents</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bin-foot"><span id="bin-count">4 object(s)</span><button class="osbtn out" id="bin-empty">Empty Recycle Bin</button></div>
+    </div>
+  </section>
 
-            const el = monitorText;
-            el.classList.remove("monitor-glitch");
-            void el.offsetWidth;             // restart glitch animation
-            el.classList.add("monitor-glitch");
+  <div id="fx"></div>
 
-            let i = 0;
-            el.textContent = "";
-            const speed = 28;                // ms per character
+  <div id="startmenu" class="out" hidden>
+    <div class="band"><span>Vice OS 86</span></div>
+    <ul>
+      <li><button data-open="w-browser"><svg><use href="#i-web"/></svg>My Portfolio</button></li>
+      <li><button data-open="w-game"><svg><use href="#i-bug"/></svg>Bugsweeper</button></li>
+      <li><button data-act="radio"><svg><use href="#i-radio"/></svg>MJ FM radio</button></li>
+      <li><button data-open="w-notes"><svg><use href="#i-note"/></svg>readme.txt</button></li>
+      <li><hr></li>
+      <li><button data-act="shutdown"><svg><use href="#i-power"/></svg>Shut Down…</button></li>
+    </ul>
+  </div>
 
-            const step = () => {
-            el.textContent = fullText.slice(0, i);
-            if (i < fullText.length) {
-                i++;
-                typingTimer = setTimeout(step, speed);
-            }
-            };
-            step();
-        }
+  <div id="balloon" role="status" hidden><b id="balloon-t"></b><span id="balloon-m"></span><button type="button" aria-label="Close notification">×</button></div>
 
-        // per-line delay for staggered list animation
-        document.querySelectorAll(".skills-lines li").forEach((li, idx) => {
-            li.style.setProperty("--line-delay", `${idx * 70}ms`);
-        });
+  <div id="taskbar">
+    <button id="start" class="out" aria-haspopup="true" aria-expanded="false"><span class="logo">v</span>Start</button>
+    <div id="tasks"></div>
+    <div id="tray" class="in">
+      <button id="sfx-btn" aria-pressed="true" title="Sounds: on" aria-label="System sounds"><svg viewBox="0 0 16 16"><path d="M2 6h3l4-3v10L5 10H2z" fill="currentColor"/><path class="w" d="M11 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6 6 0 0 1 0 9" fill="none" stroke="currentColor" stroke-width="1.3"/><path class="mute" d="M11 6l4 4M15 6l-4 4" stroke="currentColor" stroke-width="1.4"/></svg></button>
+      <button id="radio-btn" aria-pressed="false" title="Music: off"><svg><use href="#i-radio"/></svg><span>MJ FM</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></button>
+      <span id="clock"></span>
+    </div>
+  </div>
+</div>
 
-        if (categories.length && monitorText) {
-            const observer = new IntersectionObserver(
-            entries => {
-                entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
+<!-- ============ PHONE OS (phones only) ============ -->
+<div id="phoneos" hidden>
+  <div class="po-status" aria-hidden="true"><span id="po-time">9:41</span><span class="po-carrier">VICE</span><span class="po-icons"><i class="sig"><b></b><b></b><b></b><b></b></i><i class="bat"><b></b></i></span></div>
+  <section class="po-widget" aria-label="Manas Joshi">
+    <div class="po-name">Manas Joshi</div>
+    <div class="po-sub">ML · security · full-stack · UAlberta '27</div>
+    <div class="po-hud"><span class="po-commits"><svg aria-hidden="true"><use href="#i-commit"/></svg><b id="po-commits">0</b>commits</span><span class="po-stars" id="po-stars"></span></div>
+    <div class="po-obj">Open <em>Projects</em> to see QuantDash, live in production.</div>
+  </section>
+  <nav class="po-grid" aria-label="Apps">
+    <button class="po-app" data-app="home"><i style="--bg:linear-gradient(155deg,#ffcf6b,#ff5fa2 52%,#6a2fbf)"><b class="po-mj">MJ</b></i><span>About</span></button>
+    <button class="po-app" data-app="missions"><i style="--bg:#c9426a"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 11l-2 2 2 2M14 11l2 2-2 2"/></svg></i><span>Projects</span></button>
+    <button class="po-app" data-app="career"><i style="--bg:#2f7d8c"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></i><span>Experience</span></button>
+    <button class="po-app" data-app="stats"><i style="--bg:#5b6bd6"><svg viewBox="0 0 24 24"><path d="M4 20h16M7 17v-6M12 17V5M17 17v-9"/></svg></i><span>Skills</span></button>
+    <button class="po-app" data-app="brief"><i style="--bg:#8a6d2f"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.4 2.7 3 6 3s6-1.6 6-3v-5M22 9v6"/></svg></i><span>Education</span></button>
+    <button class="po-app" data-app="menu"><i style="--bg:#6b6573"><svg viewBox="0 0 24 24" style="stroke:none"><rect x="4" y="5" width="16" height="3" rx="1" fill="#ff9fe3"/><rect x="3" y="10.5" width="18" height="4" rx="1" fill="#0e8a4c"/><rect x="6" y="11.4" width="12" height="2.2" rx="1" fill="#ff9fe3"/><rect x="4" y="17" width="16" height="3" rx="1" fill="#ff9fe3"/></svg></i><span>Main menu</span></button>
+    <button class="po-app" data-app="snake"><i style="--bg:#1f8f5a"><svg viewBox="0 0 24 24"><path d="M4 17c3 0 3-4 6-4s3 4 6 4 2-6 4-9"/><circle cx="20" cy="7" r="1.6" style="fill:#fff;stroke:none"/></svg></i><span>Snake '86</span></button>
+    <button class="po-app" data-app="notes"><i style="--bg:#e8b931"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>Notes</span></button>
+    <button class="po-app" data-app="settings"><i style="--bg:#5b5f70"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></i><span>Settings</span></button>
+  </nav>
+  <nav class="po-dock" aria-label="Dock">
+    <button class="po-app" data-app="contact"><i style="--bg:#3f8a4f"><svg viewBox="0 0 24 24"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i><span>Contact</span></button>
+    <a class="po-app" href="/assets/Manas_Joshi_Resume.pdf" target="_blank" rel="noopener"><i style="--bg:#3b4152"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M12 12v6M9 15l3 3 3-3"/></svg></i><span>Résumé</span></a>
+    <button class="po-app" data-app="radio" id="po-radio"><i style="--bg:#d97a2b"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><circle cx="8.5" cy="14" r="2.5"/><path d="M14 12h4M14 16h4M7 8l10-5"/></svg></i><span>MJ FM</span></button>
+  </nav>
+</div>
+<div id="appbar" hidden><button type="button" id="ab-back" aria-label="Back to the home screen">‹ home</button><span id="ab-title"></span><span class="po-stars" id="ab-stars" aria-hidden="true"></span></div>
+<button type="button" id="apphome" hidden aria-label="Home screen"><i></i></button>
 
-                const cat = entry.target;
-                cat.classList.add("active");
+<!-- phone-only apps that aren't pages: Snake, Notes, Settings -->
+<div id="po-sheet" hidden>
+  <div class="sh-bar"><button type="button" id="sh-back" aria-label="Back to the home screen">‹ home</button><span id="sh-title"></span></div>
+  <div class="sh-body">
+    <section data-sheet="snake" class="snake" hidden>
+      <div class="sn-hud"><span class="sn-score"><svg aria-hidden="true"><use href="#i-commit"/></svg><b id="sn-score">0</b> commits</span><span id="sn-best">best 0</span></div>
+      <div class="sn-wrap"><canvas id="sn-cv" aria-label="Snake game board"></canvas><div class="sn-msg" id="sn-msg"></div></div>
+      <div class="sn-pad" aria-label="Controls">
+        <button type="button" data-dir="up" aria-label="Up">▲</button>
+        <button type="button" data-dir="left" aria-label="Left">◀</button>
+        <button type="button" data-dir="down" aria-label="Down">▼</button>
+        <button type="button" data-dir="right" aria-label="Right">▶</button>
+      </div>
+    </section>
+    <section data-sheet="notes" class="notes" hidden>
+      <div class="note">
+        <h4>things to try</h4>
+        <ul>
+          <li>Come back later. Your wanted level goes up every visit.</li>
+          <li>Open Contact, then tap the business card to flip it. Hold it to find the watermark.</li>
+          <li>Main menu is the classic pink one. Try "quit game".</li>
+          <li>MJ FM plays synthwave made live on your phone.</li>
+          <li>Beat your Snake '86 best. It's saved on this phone.</li>
+          <li>On a computer this site is a whole 1986 desktop. Worth a look.</li>
+        </ul>
+        <p class="sig">MJ</p>
+      </div>
+    </section>
+    <section data-sheet="settings" class="settings" hidden>
+      <button type="button" class="set-row" data-set="sfx" id="set-sfx"><span>sounds</span><i class="tg"></i></button>
+      <button type="button" class="set-row" data-set="music" id="set-music"><span>music · mj fm</span><i class="tg"></i></button>
+      <button type="button" class="set-row" data-set="intro"><span>replay the intro</span><em>›</em></button>
+      <button type="button" class="set-row" data-set="wanted"><span>clear wanted level</span><em id="set-visits"></em></button>
+      <p class="set-foot">Vice OS 86 · manasjoshi.site</p>
+    </section>
+  </div>
+</div>
 
-                const key = cat.dataset.monitor;
-                if (key && !monitorOrder.includes(key)) {
-                    monitorOrder.push(key);
-                    typeMonitorCombined();
-                }
+<div id="vcm" hidden tabindex="-1" role="dialog" aria-label="Classic main menu">
+  <div class="vc-panel"><canvas class="camo" aria-hidden="true"></canvas></div>
+  <div class="vc-logo">Manas Joshi</div>
+  <div class="vc-title">main menu</div>
+  <ul class="vc-items" role="menu"></ul>
+  <div class="vc-say" aria-live="polite"></div>
+  <div class="vc-hint"></div>
+  <div class="vc-black"></div>
+</div>
 
-                observer.unobserve(cat);   // each category only triggers once
-                });
-            },
-            { threshold: 0.35 }
-            );
+<div id="shut" hidden></div>
 
-            categories.forEach(cat => observer.observe(cat));
-        }
-
-        /* ---------- FOOTER DISC AUDIO EASTER EGG -------------------- */
-
-        const disc  = document.getElementById("footer-disc");
-        const audio = document.getElementById("footer-audio");
-
-        if (disc && audio) {
-            let hasMorphed = false;  // did we already turn O -> disc?
-            let isPlaying  = false;
-
-            disc.addEventListener("click", () => {
-                // first click: turn the letter into the disc
-                if (!hasMorphed) {
-                    disc.classList.add("disc-active");
-                    hasMorphed = true;
-                }
-
-                if (!isPlaying) {
-                    audio.play().then(() => {
-                        disc.classList.add("disc-spin");
-                        isPlaying = true;
-                    }).catch(err => {
-                        console.error("Audio play failed:", err);
-                    });
-                } else {
-                    audio.pause();
-                    disc.classList.remove("disc-spin");
-                    isPlaying = false;
-                }
-            });
-        }
-
-        }
-    );
-    </script>
-
-
-    <!-- Matrix animation JS -->
-    <script src="script.js"></script>
+<div id="intro" aria-label="Intro">
+  <div class="tagwrap"><canvas id="spray" aria-hidden="true"></canvas><i class="glint"></i><small>presents</small></div>
+  <div class="press" hidden>Press any key</div>
+</div>
 </body>
 </html>

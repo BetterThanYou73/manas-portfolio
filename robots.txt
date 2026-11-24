@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://manasjoshi.space/sitemap.xml
+Sitemap: https://manasjoshi.site/sitemap.xml

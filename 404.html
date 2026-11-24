@@ -1,56 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>404 | Page Lost in the Matrix</title>
-    <link rel="icon" type="image/x-icon" href="https://manasjoshi.space/assets/logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            background: black;
-            color: #00ff9a;
-            font-family: "Share Tech Mono", monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-        .glitch {
-            font-size: 2rem;
-            text-align: center;
-            position: relative;
-            animation: glitch 1s infinite;
-            letter-spacing: 0.18em;
-        }
-        @keyframes glitch {
-            0% { text-shadow: 2px 0 #00ff9a; }
-            20% { text-shadow: -2px -1px #00ffaa; }
-            40% { text-shadow: -1px 2px #00dd88; }
-            60% { text-shadow: 1px -2px #00ffb2; }
-            80% { text-shadow: -2px 1px #00cc77; }
-            100% { text-shadow: 2px -1px #00ff9a; }
-        }
-        .sub {
-            margin-top: 1rem;
-            opacity: 0.8;
-        }
-        a {
-            color: #00ffcc;
-            text-decoration: none;
-            border-bottom: 1px solid #00ffcc;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wasted · Manas Joshi</title>
+<meta name="robots" content="noindex">
+<script>
+  // GitHub Pages has no routing: /missions, /career, /stats and /brief land here.
+  // Real pages get forwarded to the site, which restores the clean path. Anything else is wasted.
+  (function(){var routes=['missions','career','stats','brief','contact'];
+    var seg=location.pathname.replace(/^\/+|\/+$/g,'').toLowerCase();
+    if(routes.indexOf(seg)>-1){document.documentElement.style.display='none';location.replace('/?r='+seg);}})();
+</script>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@900&family=JetBrains+Mono:wght@500&family=Lilita+One&display=swap">
+<style>
+  :root{--red:#d23a3a;--pink:#ff9fe3;--green:#0e8a4c;--ink:#2d0f28;color-scheme:dark}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:#111;color:#fff;font:16px/1.5 "JetBrains Mono",ui-monospace,monospace;overflow:hidden}
+  .bg{position:fixed;inset:-20px;background:#222 url("/assets/photos/wall.jpg") 40% 60%/cover;filter:grayscale(1) contrast(1.1) brightness(.55) blur(2px);transform:scale(1.04);animation:drift 12s ease-out both}
+  .wrap{position:relative;height:100%;display:grid;place-items:center;text-align:center;padding:24px max(16px,env(safe-area-inset-left,0px)) 24px max(16px,env(safe-area-inset-right,0px))}
+  h1{margin:0;font:900 clamp(84px,18vw,220px)/.9 "Big Shoulders Display",Impact,sans-serif;color:var(--red);letter-spacing:.02em;text-transform:lowercase;
+     text-shadow:0 0 0 #000,4px 4px 0 #000,-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000;animation:slam .6s .2s cubic-bezier(.3,1.6,.5,1) both}
+  p{margin:14px 0 0;color:rgba(255,255,255,.85)}
+  .row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:26px}
+  a{all:unset;cursor:pointer;position:relative;isolation:isolate;padding:6px 18px 9px;background:rgba(10,6,20,.7);font:400 24px/1 "Lilita One",sans-serif;color:var(--pink);text-shadow:2px 2px 0 var(--ink)}
+  a::before{content:"";position:absolute;inset:0;background:var(--green);clip-path:polygon(0 0,100% 6%,100% 100%,3% 94%);opacity:0;z-index:-1}
+  a:hover::before,a:focus-visible::before{opacity:1}
+  a:focus-visible{outline:2px dotted #fff;outline-offset:3px}
+  #count{color:var(--pink)}
+  @keyframes slam{from{opacity:0;transform:scale(1.6)}}
+  @keyframes drift{from{transform:scale(1.12) rotate(-1deg)}}
+  @media (prefers-reduced-motion:reduce){h1,.bg{animation:none}}
+</style>
 </head>
-
 <body>
-    <div>
-        <div class="glitch">404 — ACCESS DENIED</div>
-        <div class="sub">
-            This page slipped out of reality.<br><br>
-            → <a href="/">Return to Main Terminal</a>
-        </div>
+<div class="bg" aria-hidden="true"></div>
+<main class="wrap">
+  <div>
+    <h1>wasted</h1>
+    <p>That page doesn't exist. Respawning at home in <span id="count">8</span>…</p>
+    <div class="row">
+      <a href="/">respawn now</a>
+      <a href="/#missions">see missions</a>
     </div>
+  </div>
+</main>
+<script>
+(function(){
+  var n=8,el=document.getElementById('count');
+  var t=setInterval(function(){n--;el.textContent=n;if(n<=0){clearInterval(t);location.href='/';}},1000);
+  document.addEventListener('pointerdown',function(){clearInterval(t);el.parentNode.textContent='That page doesn’t exist. Pick where to respawn.';},{once:true});
+})();
+</script>
 </body>
 </html>
